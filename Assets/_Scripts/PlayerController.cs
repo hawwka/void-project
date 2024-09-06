@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float turnSpeed = 360;
     private Vector3 _input;
-
+    
     private void Update()
     {
         GatherInput();
-        // Look();
+        Look();
     }
 
     private void FixedUpdate()
@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
     private void GatherInput()
     {
         _input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if(Input.GetMouseButton(0)) Debug.Log("W");
-        // if(_input.x != 0 || _input.y != 0) Debug.Log(_input);
+        
+
+        if(_input.x != 0 || _input.y != 0) Debug.Log(_input);
     }
 
     private void Look()
@@ -38,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        // rb.MovePosition(transform.position + transform.forward * (_input.magnitude * (speed * Time.deltaTime)));
-        transform.position += _input;
+        rb.MovePosition(transform.position + transform.forward * (_input.magnitude * (speed * Time.deltaTime)));
     }
 }
