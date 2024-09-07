@@ -4,6 +4,7 @@ using UnityEngine;
 public class MovementSystem : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform model;
     [SerializeField] private float baseSpeed = 8;
     
     private Vector3 _input;
@@ -38,8 +39,6 @@ public class MovementSystem : MonoBehaviour
     {
         if (_input.magnitude > 0) 
             Move();
-        else
-            currentSpeed = 0;
     }
 
     private void GatherInput()
@@ -53,16 +52,16 @@ public class MovementSystem : MonoBehaviour
         {
             var lookPos = Helpers.MouseToWorldPostion();
             
-            lookPos.y = transform.position.y;
+            lookPos.y = model.position.y;
 
-            transform.LookAt(lookPos);
+            model.LookAt(lookPos);
             return;
         }
         
         if(_input == Vector3.zero)
             return;
         
-        transform.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
+        model.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
     }
 
     private void Move()
@@ -71,7 +70,7 @@ public class MovementSystem : MonoBehaviour
 
 
         var normalizedInput = _input.normalized.ToIso();
-        var forwardTransform = transform.forward;
+        var forwardTransform = model.forward;
         
         var angle = Vector3.Angle(normalizedInput, forwardTransform);
         
