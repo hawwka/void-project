@@ -30,7 +30,7 @@ public class MovementSystem : MonoBehaviour
     
     private void Look()
     {
-        if (_input == Vector3.zero && !Input.GetMouseButton(1)) return;
+        if (_input == Vector3.zero && !Input.GetMouseButton(1) && !Input.GetMouseButton(0)) return;
 
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
