@@ -10,7 +10,23 @@ public class MovementSystem : MonoBehaviour
     private Vector3 _mouseInput;
     
     private Vector3 _mouseWorldPos;
+    private float currentSpeed;
+
+    private GUIStyle guiStyle = new GUIStyle();
     
+    void Start()
+    {
+        // Настраиваем стиль текста
+        guiStyle.fontSize = 24; // Устанавливаем размер шрифта (например, 24)
+        guiStyle.normal.textColor = Color.green; // Цвет текста
+    }
+    
+    private void OnGUI()
+    {
+        // Отображаем текст на экране с помощью метода OnGUI
+        GUI.Label(new Rect(10, 10, 200, 20), "currentSpeed: " + currentSpeed .ToString("F2"), guiStyle);
+        
+    }
     
     private void Update()
     {
@@ -20,7 +36,10 @@ public class MovementSystem : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (_input.magnitude > 0) Move();
+        if (_input.magnitude > 0) 
+            Move();
+        else
+            currentSpeed = 0;
     }
 
     private void GatherInput()
@@ -30,7 +49,11 @@ public class MovementSystem : MonoBehaviour
     
     private void Look()
     {
+<<<<<<< HEAD
         if (_input == Vector3.zero && !Input.GetMouseButton(1) && !Input.GetMouseButton(0)) return;
+=======
+        if (_input == Vector3.zero && !Input.GetMouseButton(0) && !Input.GetMouseButton(1)) return;
+>>>>>>> bec7886e718ca9c9083cd45a98b96f09e50c340b
 
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
@@ -47,23 +70,25 @@ public class MovementSystem : MonoBehaviour
 
     private void Move()
     {
+        currentSpeed = baseSpeed;
+
+
         var normalizedInput = _input.normalized.ToIso();
         var forwardTransform = transform.forward;
         
-        float angle = Vector3.Angle(normalizedInput, forwardTransform);
-        float speed = baseSpeed;
-        var absAngle = Mathf.Abs(angle);
+        var angle = Vector3.Angle(normalizedInput, forwardTransform);
+        
 
-        if (absAngle > 90 && absAngle <= 175)
-            speed = baseSpeed * (360 - absAngle) / 360;
-        else if (absAngle > 175 && absAngle <= 180)
-            speed = (float)(baseSpeed * 0.5);
+        if (angle > 90 && angle <= 175)
+            currentSpeed = baseSpeed * (360 - angle) / 360;
+        else if (angle > 175 && angle <= 180)
+            currentSpeed = (float)(baseSpeed * 0.5);
+        
+        
         
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-        {
-            rb.MovePosition(transform.position + normalizedInput * (speed * Time.deltaTime));
-        }
+            rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
         else
-            rb.MovePosition(transform.position + forwardTransform * (speed * Time.deltaTime));
+            rb.MovePosition(transform.position + forwardTransform * (currentSpeed * Time.deltaTime));
     }
 }
