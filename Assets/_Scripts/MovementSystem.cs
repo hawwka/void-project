@@ -49,12 +49,6 @@ public class MovementSystem : MonoBehaviour
     
     private void Look()
     {
-<<<<<<< HEAD
-        if (_input == Vector3.zero && !Input.GetMouseButton(1) && !Input.GetMouseButton(0)) return;
-=======
-        if (_input == Vector3.zero && !Input.GetMouseButton(0) && !Input.GetMouseButton(1)) return;
->>>>>>> bec7886e718ca9c9083cd45a98b96f09e50c340b
-
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             var lookPos = Helpers.MouseToWorldPostion();
@@ -64,6 +58,9 @@ public class MovementSystem : MonoBehaviour
             transform.LookAt(lookPos);
             return;
         }
+        
+        if(_input == Vector3.zero)
+            return;
         
         transform.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
     }
