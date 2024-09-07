@@ -4,12 +4,12 @@ using UnityEngine;
 public class MovementSystem : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float speed = 5;
+    [SerializeField] private float baseSpeed = 8;
     
     private Vector3 _input;
     private Vector3 _mouseInput;
     
-    private Vector3 mouseWorldPos;
+    private Vector3 _mouseWorldPos;
     
     
     private void Update()
@@ -32,7 +32,7 @@ public class MovementSystem : MonoBehaviour
     {
         if (_input == Vector3.zero && !Input.GetMouseButton(1)) return;
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             var lookPos = Helpers.MouseToWorldPostion();
             
@@ -47,11 +47,23 @@ public class MovementSystem : MonoBehaviour
 
     private void Move()
     {
-        if (Input.GetMouseButton(1))
+        var normalizedInput = _input.normalized.ToIso();
+        var forwardTransform = transform.forward;
+        
+        float angle = Vector3.Angle(normalizedInput, forwardTransform);
+        float speed = baseSpeed;
+        var absAngle = Mathf.Abs(angle);
+
+        if (absAngle > 90 && absAngle <= 175)
+            speed = baseSpeed * (360 - absAngle) / 360;
+        else if (absAngle > 175 && absAngle <= 180)
+            speed = (float)(baseSpeed * 0.5);
+        
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
-            rb.MovePosition(transform.position + _input.normalized.ToIso() * (speed * Time.deltaTime));
+            rb.MovePosition(transform.position + normalizedInput * (speed * Time.deltaTime));
         }
         else
-            rb.MovePosition(transform.position + transform.forward * (speed * Time.deltaTime));
+            rb.MovePosition(transform.position + forwardTransform * (speed * Time.deltaTime));
     }
 }
