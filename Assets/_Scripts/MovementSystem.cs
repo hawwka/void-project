@@ -6,15 +6,21 @@ public class MovementSystem : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform model;
     [SerializeField] private float baseSpeed = 8;
+    [SerializeField] private float dashForce = 50;
+    [SerializeField] private float DelayAftetDash = 1f;
+    [SerializeField] private float DashDuration = 0.25f;
     
     private Vector3 _input;
     private Vector3 _mouseInput;
     
     private Vector3 _mouseWorldPos;
     private float currentSpeed;
+    private float lastDashTime;
 
-    private GUIStyle guiStyle = new GUIStyle();
+    private bool canMove = true;
     
+    private GUIStyle guiStyle = new GUIStyle();
+
     void Start()
     {
         // Настраиваем стиль текста
@@ -26,6 +32,7 @@ public class MovementSystem : MonoBehaviour
     {
         // Отображаем текст на экране с помощью метода OnGUI
         GUI.Label(new Rect(10, 10, 200, 20), "currentSpeed: " + currentSpeed .ToString("F2"), guiStyle);
+        GUI.Label(new Rect(10, 40, 200, 20), "linearVelocity: " + rb.linearVelocity.magnitude .ToString("F2"), guiStyle);
         
     }
     
@@ -44,6 +51,8 @@ public class MovementSystem : MonoBehaviour
     private void GatherInput()
     {
         _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if(Input.GetKeyDown(KeyCode.Space))
+            Dash();
     }
     
     private void Look()
@@ -64,8 +73,34 @@ public class MovementSystem : MonoBehaviour
         model.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
     }
 
+    private void Dash()
+    {
+        
+        if (Time.time - lastDashTime < DelayAftetDash)
+            return;
+        
+        canMove = false;
+        
+        lastDashTime = Time.time;
+        
+        if(_input == Vector3.zero)
+            rb.AddForce(model.forward * dashForce, ForceMode.Impulse);
+        else
+            rb.AddForce(_input.normalized.ToIso() * dashForce, ForceMode.Impulse);
+        
+        Invoke(nameof(ResetDash), DashDuration);
+    }
+
+    private void ResetDash()
+    {
+        canMove = true;
+    }
+    
     private void Move()
     {
+        if(!canMove)
+            return;
+        
         currentSpeed = baseSpeed;
 
 
@@ -79,8 +114,6 @@ public class MovementSystem : MonoBehaviour
             currentSpeed = baseSpeed * (360 - angle) / 360;
         else if (angle > 175 && angle <= 180)
             currentSpeed = (float)(baseSpeed * 0.5);
-        
-        
         
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
