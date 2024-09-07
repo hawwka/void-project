@@ -15,25 +15,27 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(_input.magnitude > 0) Move();
     }
 
     private void GatherInput()
     {
-        _input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
     }
 
     private void Look()
     {
         if (_input == Vector3.zero) return;
         
-        var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
+        // var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
+        // transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
+        
+        transform.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
     }
 
     private void Move()
     {
-        rb.MovePosition(transform.position + transform.forward * (_input.magnitude * (speed * Time.deltaTime)));
+        rb.MovePosition(transform.position + transform.forward * (speed * Time.deltaTime));
     }
 }
