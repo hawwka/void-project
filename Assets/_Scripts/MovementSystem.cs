@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class MovementSystem : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float speed = 5;
