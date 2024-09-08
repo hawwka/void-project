@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2952225279392162382}
   - component: {fileID: 8973647981107227400}
   m_Layer: 0
-  m_Name: WeaponVisualEffect
+  m_Name: WeaponVisualEffectBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

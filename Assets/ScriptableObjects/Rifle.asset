@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ae2658718838047adb5c96224d2a7a, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  VisualEffect: {fileID: 8973647981107227400, guid: 3a33553e29f278841b5981a8fa0b63de, type: 3}
   ChargeTime: 0
-  DelayAftetShot: 0
-  Range: 0
-  Damage: 0
+  DelayAftetShot: 0.2
+  Range: 40
+  Damage: 10

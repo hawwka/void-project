@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
 [RequireComponent(typeof(Character))]
 public class CombatSystem : MonoBehaviour
@@ -7,14 +7,15 @@ public class CombatSystem : MonoBehaviour
     private Character character;
     
     [SerializeField]
+    private List<Weapon> weapons = new();
+    
     private Weapon selectedWeapon;
 
-    private WeaponVisualEffect weaponVisualEffect;
 
     private void Start()
     {
         character = GetComponent<Character>();
-        weaponVisualEffect = Instantiate(selectedWeapon.WeaponConfigSo.VisualEffect, transform);
+        selectedWeapon = weapons[0];
     }
 
     private void Update()
@@ -23,6 +24,11 @@ public class CombatSystem : MonoBehaviour
             BaseAttack();
     }
 
+    private void SelectWeapon(int weaponIndex)
+    {
+        
+    }
+    
     private void BaseAttack()
     {
         if (selectedWeapon == null) return;
