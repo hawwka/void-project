@@ -12,7 +12,9 @@ public static class Helpers
 
         var ray = Camera.main.ScreenPointToRay(_mouseInput);
 
-        var groundPlane = new Plane(Vector3.up, Vector3.zero);
+        var planeVector = new Vector3(0, 1.4f, 0);
+        
+        var groundPlane = new Plane(Vector3.up, planeVector);
 
         if (groundPlane.Raycast(ray, out float distance))
         {
