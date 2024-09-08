@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ae2658718838047adb5c96224d2a7a, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  VisualEffect: {fileID: 0}
   ChargeTime: 0
-  DelayAftetShot: 0
-  Range: 0
-  Damage: 0
+  DelayAftetShot: 1
+  Range: 10
+  Damage: 66

@@ -22,11 +22,21 @@ public class CombatSystem : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
             BaseAttack();
+
+        if (Input.GetKey(KeyCode.Alpha1))
+            SelectWeapon(0);
+        
+        if (Input.GetKey(KeyCode.Alpha2))
+            SelectWeapon(1);
     }
 
     private void SelectWeapon(int weaponIndex)
     {
+        selectedWeapon.gameObject.SetActive(false);
+
+        selectedWeapon = weapons[weaponIndex];
         
+        selectedWeapon.gameObject.SetActive(true);
     }
     
     private void BaseAttack()
