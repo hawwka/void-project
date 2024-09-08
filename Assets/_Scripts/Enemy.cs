@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -60,8 +59,6 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        print("Died beautifully!");
-        
         Destroy(gameObject);
     }
 }

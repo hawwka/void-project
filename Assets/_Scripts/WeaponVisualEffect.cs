@@ -17,7 +17,7 @@ public class WeaponVisualEffect : MonoBehaviour
         
         var tracerInstance = Instantiate(TracerObject, from, Quaternion.LookRotation(to));
 
-        var duration = Vector3.Distance(from, to) / speed;
+        var duration = distance / speed;
         
         while (duration > 0)
         {

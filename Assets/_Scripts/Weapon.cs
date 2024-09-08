@@ -26,14 +26,14 @@ public class Weapon : MonoBehaviour
 
         if (!Physics.Raycast(origin, dir, out var hit, Range))
         {
-            VisualEffect.ShowTracer(origin, dir, Range, 100f);
+            VisualEffect.ShowTracer(origin, dir, Range, 200f);
             return;
         }
 
         if (hit.collider.TryGetComponent<Enemy>(out var component))
             component.TakeDamage(Damage);
         
-        VisualEffect.ShowTracer(origin,  dir, Vector3.Distance(origin, hit.point), 100f);
+        VisualEffect.ShowTracer(origin, dir, hit.distance, 200f);
 
 
         Debug.DrawRay(origin, dir * hit.distance, Color.yellow);
