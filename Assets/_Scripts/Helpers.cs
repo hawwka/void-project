@@ -17,7 +17,7 @@ public static class Helpers
         if (groundPlane.Raycast(ray, out float distance))
         {
             var pos = ray.GetPoint(distance);
-
+            
             return pos;
         }
 
