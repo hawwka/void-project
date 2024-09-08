@@ -1,17 +1,20 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Character))]
 public class CombatSystem : MonoBehaviour
 {
     private Character character;
-
+    
     [SerializeField]
     private Weapon selectedWeapon;
-    
+
+    private WeaponVisualEffect weaponVisualEffect;
 
     private void Start()
     {
         character = GetComponent<Character>();
+        weaponVisualEffect = Instantiate(selectedWeapon.WeaponConfigSo.VisualEffect, transform);
     }
 
     private void Update()
