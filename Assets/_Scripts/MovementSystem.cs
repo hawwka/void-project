@@ -22,17 +22,6 @@ public class MovementSystem : MonoBehaviour
     private float maxVeloctiy;
     private void Update()
     {
-
-#if UNITY_EDITOR
-
-        DeveloperMetrics.Instance.AddOrUpdateData("Linear Velocity", rb.linearVelocity.magnitude .ToString("0.0"), 0);
-        DeveloperMetrics.Instance.AddOrUpdateData("Max Linear Velocity",  maxVeloctiy.ToString("0.0"), 1);
-        
-        if (maxVeloctiy < rb.linearVelocity.magnitude)
-            maxVeloctiy = rb.linearVelocity.magnitude;
-
-#endif
-        
         GatherInput();
         Look();
     }
