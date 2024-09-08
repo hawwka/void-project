@@ -166,6 +166,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119459037890423634, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8513050646228383313, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -184,17 +224,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6042956178749994378, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
   m_PrefabInstance: {fileID: 15667330}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &15667332 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3080388588786926534, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
-  m_PrefabInstance: {fileID: 15667330}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14e9c3e5008f4b749d0a9fd56037efc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &39420468
 Transform:
   m_ObjectHideFlags: 0
@@ -548,13 +577,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &723765083 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3080388588786926534, guid: 6b197c8296f596447b45bbc138b0dde9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3719706406589681005, guid: 6b197c8296f596447b45bbc138b0dde9, type: 3}
   m_PrefabInstance: {fileID: 723765081}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14e9c3e5008f4b749d0a9fd56037efc1, type: 3}
+  m_Script: {fileID: 11500000, guid: dcbd12267e8d5b14284a644a0e5512ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &832575517
@@ -1031,6 +1060,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535774636}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1622595969 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1990932901132551661, guid: 464867db5af34864ea6b3bcb07bf023c, type: 3}
+  m_PrefabInstance: {fileID: 15667330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f558e77fd8ec08849a82c9e0ef8b27bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1641016477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 723765083}
-  - {fileID: 15667332}
+  - {fileID: 1622595969}
 --- !u!114 &1836379573
 MonoBehaviour:
   m_ObjectHideFlags: 0

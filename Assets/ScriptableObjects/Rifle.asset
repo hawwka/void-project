@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   ChargeTime: 0
-  DelayAftetShot: 0.2
+  DelayAftetShot: 0.05
   Range: 40
   Damage: 10
+  MaxRecoil: 0.25

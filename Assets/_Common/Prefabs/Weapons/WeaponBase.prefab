@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7166430728544823419}
-  - component: {fileID: 1880005996637675063}
   m_Layer: 0
   m_Name: WeaponBase
   m_TagString: Untagged
@@ -65,20 +64,6 @@ Transform:
   - {fileID: 7112203916051183171}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1880005996637675063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5083662461281020832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14e9c3e5008f4b749d0a9fd56037efc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponConfigSo: {fileID: 0}
-  visualEffect: {fileID: 0}
 --- !u!1 &5982902409372900745
 GameObject:
   m_ObjectHideFlags: 0

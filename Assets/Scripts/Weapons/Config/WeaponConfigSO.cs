@@ -10,4 +10,6 @@ public class WeaponConfigSO : ScriptableObject
     public float Range;
 
     public int Damage;
+
+    public float MaxRecoil;
 }
