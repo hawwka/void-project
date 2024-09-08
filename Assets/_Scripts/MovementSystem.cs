@@ -103,5 +103,9 @@ public class MovementSystem : MonoBehaviour
             rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
         else
             rb.MovePosition(transform.position + forwardTransform * (currentSpeed * Time.deltaTime));
+        // if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        //     rb.linearVelocity = (normalizedInput * (currentSpeed * Time.fixedDeltaTime));
+        // else
+        //     rb.linearVelocity = (forwardTransform * (currentSpeed * Time.fixedDeltaTime));
     }
 }
