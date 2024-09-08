@@ -18,26 +18,21 @@ public class MovementSystem : MonoBehaviour
     private float lastDashTime;
 
     private bool canMove = true;
-    
-    private GUIStyle guiStyle = new GUIStyle();
 
-    void Start()
-    {
-        // Настраиваем стиль текста
-        guiStyle.fontSize = 24; // Устанавливаем размер шрифта (например, 24)
-        guiStyle.normal.textColor = Color.green; // Цвет текста
-    }
-    
-    private void OnGUI()
-    {
-        // Отображаем текст на экране с помощью метода OnGUI
-        GUI.Label(new Rect(10, 10, 200, 20), "currentSpeed: " + currentSpeed .ToString("F2"), guiStyle);
-        GUI.Label(new Rect(10, 40, 200, 20), "linearVelocity: " + rb.linearVelocity.magnitude .ToString("F2"), guiStyle);
-        
-    }
-    
+    private float maxVeloctiy;
     private void Update()
     {
+
+#if UNITY_EDITOR
+
+        DeveloperMetrics.Instance.AddOrUpdateData("Linear Velocity", rb.linearVelocity.magnitude .ToString("0.0"), 0);
+        DeveloperMetrics.Instance.AddOrUpdateData("Max Linear Velocity",  maxVeloctiy.ToString("0.0"), 1);
+        
+        if (maxVeloctiy < rb.linearVelocity.magnitude)
+            maxVeloctiy = rb.linearVelocity.magnitude;
+
+#endif
+        
         GatherInput();
         Look();
     }

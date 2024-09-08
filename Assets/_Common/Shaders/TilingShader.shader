@@ -39,7 +39,7 @@ Shader "Unlit/TilingShader"
             v2f vert (appdata v)
             {
                 v2f o;
-                o.worldPos = mul(UNITY_MATRIX_M, v.vertex) * 0.5;
+                o.worldPos = mul(UNITY_MATRIX_M, v.vertex) * 0.2;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 UNITY_TRANSFER_FOG(o,o.vertex);
@@ -50,7 +50,10 @@ Shader "Unlit/TilingShader"
             {
                 float2 topDownProjection = i.worldPos.xz;
                 // sample the texture
+
                 fixed4 col = tex2D(_MainTex, topDownProjection);
+
+                //fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
