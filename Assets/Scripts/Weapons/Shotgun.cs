@@ -18,11 +18,12 @@ public class Shotgun : Weapon
         var dir = weaponSocket.TransformDirection(Vector3.forward);
         var recoilStep = WeaponConfigSo.MaxRecoil * 2 / pelletsAmount;
         var recoilCurrentPos = -WeaponConfigSo.MaxRecoil;
-        var dirx = dir.x;
+        var dirVar = dir;
         
         for (int i = 0; i <= pelletsAmount; i++)
-        {
-            dir.x = dirx + Random.Range(recoilCurrentPos, recoilCurrentPos + recoilStep);
+        {   
+            var randomOffset = Random.insideUnitCircle * (recoilCurrentPos + recoilStep); 
+            dir = new Vector3(randomOffset.x, 0, randomOffset.y) + dirVar;
             recoilCurrentPos += recoilStep;
 
             if (!Physics.Raycast(origin, dir, out var hit, WeaponConfigSo.Range))

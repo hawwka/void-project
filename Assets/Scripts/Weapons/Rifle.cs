@@ -15,9 +15,10 @@ public class Rifle : Weapon
      
         var origin = weaponSocket.position;
         var dir = weaponSocket.TransformDirection(Vector3.forward);
+        var randomOffset = Random.insideUnitCircle * WeaponConfigSo.MaxRecoil; 
         
-        dir.x += Random.Range(-WeaponConfigSo.MaxRecoil, WeaponConfigSo.MaxRecoil);
-
+        dir += new Vector3(randomOffset.x, 0, randomOffset.y);
+        
         if (!Physics.Raycast(origin, dir, out var hit, WeaponConfigSo.Range))
         {
             visualEffect.ShowTracer(origin, dir, WeaponConfigSo.Range, 200f);
