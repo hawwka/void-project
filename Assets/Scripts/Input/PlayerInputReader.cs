@@ -9,6 +9,8 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public event UnityAction<Vector2> Move = delegate {  }; 
     public event UnityAction Dash = delegate {  };
     public event UnityAction<bool> Fire = delegate {  };
+    public event UnityAction<int> SelectPrimaryWeapon = delegate {  };
+    public event UnityAction<int> SelectSecondaryWeapon = delegate {  };
     
 
     private InputActions inputActions;
@@ -35,7 +37,7 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        
+        //noop
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -54,5 +56,15 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public void OnDash(InputAction.CallbackContext context)
     {
         Dash.Invoke();
+    }
+
+    public void OnPrimaryWeapon(InputAction.CallbackContext context)
+    {
+        SelectPrimaryWeapon.Invoke(0);
+    }
+
+    public void OnSecondWeapon(InputAction.CallbackContext context)
+    {
+        SelectSecondaryWeapon.Invoke(1);
     }
 }

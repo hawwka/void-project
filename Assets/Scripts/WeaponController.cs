@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +12,9 @@ public class WeaponController : MonoBehaviour
     private List<Weapon> weapons = new();
     
     private Weapon selectedWeapon;
-
-
+    
     private bool isFiring;
+    
     private void Start()
     {
         selectedWeapon = weapons[0];
@@ -24,11 +23,15 @@ public class WeaponController : MonoBehaviour
     private void OnEnable()
     {
         input.Fire += HandleFire;
+        input.SelectPrimaryWeapon += SelectWeapon;
+        input.SelectSecondaryWeapon += SelectWeapon;
     }
 
     private void OnDisable()
     {
         input.Fire -= HandleFire;
+        input.SelectPrimaryWeapon -= SelectWeapon;
+        input.SelectSecondaryWeapon -= SelectWeapon;
     }
 
     private void HandleFire(bool isPressed)
@@ -40,21 +43,12 @@ public class WeaponController : MonoBehaviour
     {
         if (isFiring)
             selectedWeapon.Attack();
-        
-        
-        if (Input.GetKey(KeyCode.Alpha1))
-            SelectWeapon(0);
-        
-        if (Input.GetKey(KeyCode.Alpha2))
-            SelectWeapon(1);
     }
     
     private void SelectWeapon(int weaponIndex)
     {
         selectedWeapon.gameObject.SetActive(false);
-
         selectedWeapon = weapons[weaponIndex];
-        
         selectedWeapon.gameObject.SetActive(true);
     }
 }

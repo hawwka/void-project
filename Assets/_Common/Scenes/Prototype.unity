@@ -1538,7 +1538,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 2722442c604b7414a8c5cd489c948628, type: 2}
-  WeaponSocket: {fileID: 0}
 --- !u!1 &1984055643
 GameObject:
   m_ObjectHideFlags: 0
