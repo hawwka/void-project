@@ -47,8 +47,10 @@ public class WeaponController : MonoBehaviour
     
     private void SelectWeapon(int weaponIndex)
     {
-        selectedWeapon.gameObject.SetActive(false);
+        selectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = false;
+        // selectedWeapon.gameObject.SetActive(false);
         selectedWeapon = weapons[weaponIndex];
-        selectedWeapon.gameObject.SetActive(true);
+        selectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = true;
+        // selectedWeapon.gameObject.SetActive(true);
     }
 }
