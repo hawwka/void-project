@@ -6,11 +6,9 @@ public static class Helpers
     
     public static Vector3 ToIso(this Vector3 input) => _isoMatrix.MultiplyPoint3x4(input);
     
-    public static Vector3 MouseToWorldPostion()
+    public static Vector3 MouseToWorldPostion(Vector2 mouseInput)
     {
-        var _mouseInput = Input.mousePosition;
-
-        var ray = Camera.main.ScreenPointToRay(_mouseInput);
+        var ray = Camera.main.ScreenPointToRay(new Vector3(mouseInput.x, mouseInput.y, 0));
 
         var planeVector = new Vector3(0, 1.4f, 0);
         

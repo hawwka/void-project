@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -20,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] 
     private float DashDuration = 0.25f;
 
-    private Vector3 _input;
+    private Vector3 movement;
     private Vector3 _mouseInput;
 
     private Rigidbody rb;
@@ -28,8 +27,14 @@ public class PlayerMovement : MonoBehaviour
     private float lastDashTime;
 
     private bool canMove = true;
+    private bool isMouseAiming;
+    
+    private const float backwardSpeedFactor = 0.5f;
+    private const float forwardMoveThreshold = 90f;
+    private const float backwardMoveThreshold = 175f;
+    private const float maxBackwardAngle = 180f;
 
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,35 +45,38 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         input.Dash += OnDash;
+        input.Aim += HandleAim;
     }
 
     private void OnDisable()
     {
         input.Dash -= OnDash;
+        input.Aim -= HandleAim;
+    }
+
+    private void HandleAim(bool isRMousePressed)
+    {
+        isMouseAiming = isRMousePressed;
     }
 
     private void Update()
     {
-        GatherInput();
+        movement = new Vector3(input.Direction.x, 0, input.Direction.y);
+
         Look();
     }
     
     private void FixedUpdate()
     {
-        if (_input.magnitude > 0) 
+        if (movement.magnitude > 0) 
             Move();
     }
 
-    private void GatherInput()
-    {
-        _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-    }
-    
     private void Look()
     {
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        if (isMouseAiming)
         {
-            var lookPos = Helpers.MouseToWorldPostion();
+            var lookPos = Helpers.MouseToWorldPostion(input.MousePosition);
             
             lookPos.y = model.position.y;
 
@@ -76,10 +84,10 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         
-        if(_input == Vector3.zero)
+        if (movement.magnitude < 0.1f)
             return;
         
-        model.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
+        model.rotation = Quaternion.LookRotation(movement.ToIso(), Vector3.up);
     }
 
     private void OnDash()
@@ -91,10 +99,10 @@ public class PlayerMovement : MonoBehaviour
         
         lastDashTime = Time.time;
         
-        if(_input == Vector3.zero)
+        if(movement == Vector3.zero)
             rb.AddForce(model.forward * dashForce, ForceMode.Impulse);
         else
-            rb.AddForce(_input.normalized.ToIso() * dashForce, ForceMode.Impulse);
+            rb.AddForce(movement.normalized.ToIso() * dashForce, ForceMode.Impulse);
         
         Invoke(nameof(ResetDash), DashDuration);
     }
@@ -106,30 +114,31 @@ public class PlayerMovement : MonoBehaviour
     
     private void Move()
     {
-        if(!canMove)
+        if (!canMove)
             return;
         
         currentSpeed = baseSpeed;
 
 
-        var normalizedInput = _input.normalized.ToIso();
+        var normalizedInput = movement.normalized.ToIso();
         var forwardTransform = model.forward;
         
         var angle = Vector3.Angle(normalizedInput, forwardTransform);
         
-
-        if (angle > 90 && angle <= 175)
+        
+        if (angle > forwardMoveThreshold && angle <= backwardMoveThreshold)
+        {
             currentSpeed = baseSpeed * (360 - angle) / 360;
-        else if (angle > 175 && angle <= 180)
-            currentSpeed = (float)(baseSpeed * 0.5);
+        }
+        else if (angle > backwardMoveThreshold && angle <= maxBackwardAngle)
+        {
+            currentSpeed = baseSpeed * backwardSpeedFactor;
+        }
+
         
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
         else
             rb.MovePosition(transform.position + forwardTransform * (currentSpeed * Time.deltaTime));
-        // if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-        //     rb.linearVelocity = (normalizedInput * (currentSpeed * Time.fixedDeltaTime));
-        // else
-        //     rb.linearVelocity = (forwardTransform * (currentSpeed * Time.fixedDeltaTime));
     }
 }
