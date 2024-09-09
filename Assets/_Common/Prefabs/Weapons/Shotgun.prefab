@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5083662461281020832, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7166430728544823419, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: m_LocalPosition.x
@@ -265,6 +265,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7112203916051183171, guid: 831b64925af120546940e58c2fa17617, type: 3}
   m_PrefabInstance: {fileID: 3506230875622645233}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7574387384190934704 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6464076509674472257, guid: 831b64925af120546940e58c2fa17617, type: 3}
+  m_PrefabInstance: {fileID: 3506230875622645233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8513050646228383313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5083662461281020832, guid: 831b64925af120546940e58c2fa17617, type: 3}
@@ -283,7 +288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponConfigSo: {fileID: 11400000, guid: 25aa7f5b09cd01243b283d14fbdba67f, type: 2}
+  weaponSocket: {fileID: 7574387384190934704}
   visualEffect: {fileID: 2941548652586249124}
+  pelletsAmount: 10
 --- !u!4 &9084618444624815434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5673319678364907707, guid: 831b64925af120546940e58c2fa17617, type: 3}

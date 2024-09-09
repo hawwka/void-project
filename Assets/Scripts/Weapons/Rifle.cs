@@ -6,12 +6,15 @@ public class Rifle : Weapon
 {
     private float lastAttackedTime;
     
-    public override void Attack(Vector3 origin, Vector3 dir)
+    public override void Attack()
     {
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
 
         lastAttackedTime = Time.time;
+     
+        var origin = weaponSocket.position;
+        var dir = weaponSocket.TransformDirection(Vector3.forward);
         
         dir.x += Random.Range(-WeaponConfigSo.MaxRecoil, WeaponConfigSo.MaxRecoil);
 

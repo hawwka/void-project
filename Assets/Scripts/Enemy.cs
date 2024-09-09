@@ -27,6 +27,11 @@ public class Enemy : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TakeDamageRoutine(damage));
+        
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+            Die();
     }
 
     private IEnumerator TakeDamageRoutine(int damage)
@@ -39,7 +44,7 @@ public class Enemy : MonoBehaviour
         
         while (t < dur)
         {
-            Color newColor = Color.Lerp(start, end, t / dur);
+            var newColor = Color.Lerp(start, end, t / dur);
 
             objectRenderer.material.color = newColor;
 
@@ -47,13 +52,7 @@ public class Enemy : MonoBehaviour
 
             yield return null;
         }
-
         objectRenderer.material.color = end;
-        
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
-            Die();
     }
 
 

@@ -7,13 +7,15 @@ public class Shotgun : Weapon
     [SerializeField]
     private int pelletsAmount = 10;
     
-    public override void Attack(Vector3 origin, Vector3 dir)
+    public override void Attack()
     {
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
-
+        
         lastAttackedTime = Time.time;
-
+        
+        var origin = weaponSocket.position;
+        var dir = weaponSocket.TransformDirection(Vector3.forward);
         var recoilStep = WeaponConfigSo.MaxRecoil * 2 / pelletsAmount;
         var recoilCurrentPos = -WeaponConfigSo.MaxRecoil;
         var dirx = dir.x;
@@ -34,6 +36,5 @@ public class Shotgun : Weapon
 
             visualEffect.ShowTracer(origin, dir, hit.distance, 200f);
         }
-
     }
 }

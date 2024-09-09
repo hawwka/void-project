@@ -128,6 +128,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rifle
       objectReference: {fileID: 0}
+    - target: {fileID: 6464076509674472257, guid: 831b64925af120546940e58c2fa17617, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.346
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464076509674472257, guid: 831b64925af120546940e58c2fa17617, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.616
+      objectReference: {fileID: 0}
     - target: {fileID: 7166430728544823419, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.055000067
@@ -188,6 +196,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7112203916051183171, guid: 831b64925af120546940e58c2fa17617, type: 3}
   m_PrefabInstance: {fileID: 3506230875622645233}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7574387384190934704 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6464076509674472257, guid: 831b64925af120546940e58c2fa17617, type: 3}
+  m_PrefabInstance: {fileID: 3506230875622645233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8513050646228383313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5083662461281020832, guid: 831b64925af120546940e58c2fa17617, type: 3}
@@ -206,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponConfigSo: {fileID: 11400000, guid: f771913b0a3342d448d5fc5f50a3c333, type: 2}
+  weaponSocket: {fileID: 7574387384190934704}
   visualEffect: {fileID: 7069184605277199363}
 --- !u!4 &9084618444624815434 stripped
 Transform:

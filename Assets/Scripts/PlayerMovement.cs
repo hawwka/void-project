@@ -1,25 +1,52 @@
 using System;
 using UnityEngine;
 
-public class MovementSystem : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private Transform model;
-    [SerializeField] private float baseSpeed = 8;
-    [SerializeField] private float dashForce = 50;
-    [SerializeField] private float DelayAftetDash = 1f;
-    [SerializeField] private float DashDuration = 0.25f;
+    [Header("References")]
+    [SerializeField]
+    private PlayerInputReader input;
+    [SerializeField] 
+    private Transform model;
     
+    [Header("Settings")]
+    [SerializeField] 
+    private float baseSpeed = 8;
+    [SerializeField] 
+    private float dashForce = 50;
+    [SerializeField] 
+    private float DelayAftetDash = 1f;
+    [SerializeField] 
+    private float DashDuration = 0.25f;
+
     private Vector3 _input;
     private Vector3 _mouseInput;
-    
-    private Vector3 _mouseWorldPos;
+
+    private Rigidbody rb;
     private float currentSpeed;
     private float lastDashTime;
 
     private bool canMove = true;
 
-    private float maxVeloctiy;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        
+        rb.freezeRotation = true;
+    }
+
+    private void OnEnable()
+    {
+        input.Dash += OnDash;
+    }
+
+    private void OnDisable()
+    {
+        input.Dash -= OnDash;
+    }
+
     private void Update()
     {
         GatherInput();
@@ -35,8 +62,6 @@ public class MovementSystem : MonoBehaviour
     private void GatherInput()
     {
         _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if(Input.GetKeyDown(KeyCode.Space))
-            Dash();
     }
     
     private void Look()
@@ -57,9 +82,8 @@ public class MovementSystem : MonoBehaviour
         model.rotation = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
     }
 
-    private void Dash()
+    private void OnDash()
     {
-        
         if (Time.time - lastDashTime < DelayAftetDash)
             return;
         
