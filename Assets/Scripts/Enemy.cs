@@ -1,32 +1,45 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public int MaxHealth = 100;
-    
-    private int currentHealth;
-    
-    [SerializeField]
-    private Renderer objectRenderer;
+    [Header("References")]
+    public NavMeshAgent Agent;
+    public Renderer ObjectRenderer;
 
+    [Space]
+    public int MaxHealth = 100;
+ 
+    private Player player;
+    private int currentHealth;
     private Color defaultColor;
 
+    
     private void Start()
     {
+        player = FindFirstObjectByType<Player>();
         currentHealth = MaxHealth;
-        
-        objectRenderer = GetComponent<Renderer>();
+        ObjectRenderer = GetComponent<Renderer>();
+        defaultColor = ObjectRenderer.material.color;
 
-        defaultColor = objectRenderer.material.color;
+        // Agent.enabled = false;
+        // yield return null;
+        // Agent.enabled = true;
+    }
+    
+    private void Update()
+    {
+        var offseet = (player.transform.position - transform.position).normalized * 2;
+        Agent.SetDestination(player.transform.position - offseet);
     }
 
     public void TakeDamage(int damage)
     {
-        objectRenderer.material.color = Color.red;
+        ObjectRenderer.material.color = Color.red;
 
         StopAllCoroutines();
-        StartCoroutine(TakeDamageRoutine(damage));
+        StartCoroutine(TakeDamageRoutine());
         
         currentHealth -= damage;
 
@@ -34,7 +47,7 @@ public class Enemy : MonoBehaviour
             Die();
     }
 
-    private IEnumerator TakeDamageRoutine(int damage)
+    private IEnumerator TakeDamageRoutine()
     {
         float t = 0f;
         float dur = .5f;
@@ -46,13 +59,13 @@ public class Enemy : MonoBehaviour
         {
             var newColor = Color.Lerp(start, end, t / dur);
 
-            objectRenderer.material.color = newColor;
+            ObjectRenderer.material.color = newColor;
 
             t += Time.deltaTime;
 
             yield return null;
         }
-        objectRenderer.material.color = end;
+        ObjectRenderer.material.color = end;
     }
 
 
