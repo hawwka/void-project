@@ -921,7 +921,7 @@ MonoBehaviour:
   AgentPrefab: {fileID: 8345714759845908752, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
   Parent: {fileID: 0}
   SpawnAtStartup: 1
-  Number: 10
+  Number: 1
   SpawnRadius: 50
 --- !u!1 &1535774636
 GameObject:

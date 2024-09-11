@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        if (isMouseAiming)
             rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
         else
             rb.MovePosition(transform.position + forwardTransform * (currentSpeed * Time.deltaTime));
