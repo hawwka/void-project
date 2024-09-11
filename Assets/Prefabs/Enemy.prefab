@@ -106,12 +106,11 @@ MonoBehaviour:
   Projectile: {fileID: 2205459263717733945, guid: 8f58a7daf268e33438da33e67939e86a, type: 3}
   MaxHealth: 100
   WalkableDistance: 2
-  AttackRange: 13
+  AttackRange: 15
   DetectingDistance: 10
   DetectingAngle: 30
-  AttackCooldown: 2
+  AttackCooldown: 1
   DetectionCooldown: 1
-  ProjectileSpawnPoint: {x: 0, y: 0, z: 0}
 --- !u!195 &8345714759845908752
 NavMeshAgent:
   m_ObjectHideFlags: 0

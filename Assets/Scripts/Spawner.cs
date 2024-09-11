@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [Header("References")]
-    public NavMeshAgent AgentPrefab;
+    public GameObject SpawnPrefab;
     public Transform Parent;
 
     [Header("SpawnSettings")]
@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
             var parent = Parent == null ? transform : Parent;
             
-            Instantiate(AgentPrefab, finalPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), parent);
+            Instantiate(SpawnPrefab, finalPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), parent);
         }
     }
 }

@@ -4,20 +4,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField]
-    private PlayerInputReader input;
-    [SerializeField] 
-    private Transform model;
+    [SerializeField] PlayerInputReader input;
+    [SerializeField] Transform model;
     
     [Header("Settings")]
-    [SerializeField] 
-    private float baseSpeed = 8;
-    [SerializeField] 
-    private float dashForce = 50;
-    [SerializeField] 
-    private float DelayAftetDash = 1f;
-    [SerializeField] 
-    private float DashDuration = 0.25f;
+    [SerializeField] float baseSpeed = 8;
+    [SerializeField] float dashForce = 50;
+    [SerializeField] float DelayAftetDash = 1f;
+    [SerializeField] float DashDuration = 0.25f;
+    [SerializeField] float AimingSpeedPenaltyFactor = 0.4f;
+
 
     private Vector3 movement;
     private Vector3 _mouseInput;
@@ -29,11 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     private bool isMouseAiming;
     
-    private const float backwardSpeedFactor = 0.5f;
-    private const float forwardMoveThreshold = 90f;
-    private const float backwardMoveThreshold = 175f;
-    private const float maxBackwardAngle = 180f;
-
     
     private void Awake()
     {
@@ -117,28 +108,15 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove)
             return;
         
-        currentSpeed = baseSpeed;
-
-
         var normalizedInput = movement.normalized.ToIso();
         var forwardTransform = model.forward;
-        
-        var angle = Vector3.Angle(normalizedInput, forwardTransform);
-        
-        
-        if (angle > forwardMoveThreshold && angle <= backwardMoveThreshold)
-        {
-            currentSpeed = baseSpeed * (360 - angle) / 360;
-        }
-        else if (angle > backwardMoveThreshold && angle <= maxBackwardAngle)
-        {
-            currentSpeed = baseSpeed * backwardSpeedFactor;
-        }
 
-        
         if (isMouseAiming)
-            rb.MovePosition(transform.position + normalizedInput * (currentSpeed * Time.deltaTime));
-        else
-            rb.MovePosition(transform.position + forwardTransform * (currentSpeed * Time.deltaTime));
+        {
+            rb.MovePosition(transform.position + normalizedInput * (baseSpeed * AimingSpeedPenaltyFactor * Time.deltaTime));
+            return;
+        }
+     
+        rb.MovePosition(transform.position + forwardTransform * (baseSpeed * Time.deltaTime));
     }
 }
