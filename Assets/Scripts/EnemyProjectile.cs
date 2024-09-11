@@ -6,7 +6,6 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] float VelocityMagnitude = 5f;
     [SerializeField] float accelerationMagnitude = 1f;
     [SerializeField] float DetonateRadius = .3f;
-    [SerializeField] float DetonatePower = 3f;
     [SerializeField] float LifeTime = 5f;
     
     Player player;
@@ -44,14 +43,12 @@ public class EnemyProjectile : MonoBehaviour
         rb.linearVelocity += acceleration;
         rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, VelocityMagnitude);
 
-
         if (!lifeTimeTimer.IsRunning)
             Destroy(gameObject);
         
-        if (!(Vector3.Distance(player.transform.position, transform.position) <= DetonateRadius)) return;
+        if (!(Vector3.Distance(player.transform.position, transform.position) <= DetonateRadius)) 
+            return;
         
-        player.gameObject.GetComponent<Rigidbody>().AddForce(dir * DetonatePower, ForceMode.Impulse);
-            
         Destroy(gameObject);
     }
 }

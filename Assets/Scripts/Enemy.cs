@@ -19,8 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float DetectingAngle = 30;
     [SerializeField] float AttackCooldown = 1f;
     [SerializeField] float DetectionCooldown = 1f;
-
-
+    
     Player player;
     int currentHealth;
     Color defaultColor;
