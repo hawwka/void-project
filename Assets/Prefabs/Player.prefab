@@ -384,7 +384,6 @@ GameObject:
   - component: {fileID: 5379416213111261416}
   - component: {fileID: 8489353108938620864}
   - component: {fileID: 8773473256202341033}
-  - component: {fileID: 2746597718069592558}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -475,26 +474,11 @@ MonoBehaviour:
   weapons:
   - {fileID: 4771089883627159029}
   - {fileID: 2243913388131542185}
-  selectedWeapon: {fileID: 0}
---- !u!114 &2746597718069592558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8242193780407867909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aac74760096e7b4bbfd3c3d8d45c633, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 2722442c604b7414a8c5cd489c948628, type: 2}
   model: {fileID: 5101449677537805517}
-  baseSpeed: 8
-  dashForce: 70
-  DelayAftetDash: 0.5
-  DashDuration: 0.25
-  AimingSpeedPenaltyFactor: 0.4
+  movementSpeed: 8
+  aimSpeedPenaltyFactor: 0.4
+  dashForce: 50
+  dashDuration: 0.25
 --- !u!1001 &325048324588970308
 PrefabInstance:
   m_ObjectHideFlags: 0

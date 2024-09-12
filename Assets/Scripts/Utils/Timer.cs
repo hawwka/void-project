@@ -11,7 +11,7 @@ public class Timer
         this.duration = duration;
     }
 
-    public void Start()
+    public void Run()
     {
         IsRunning = true;
 

@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float AttackCooldown = 1f;
     [SerializeField] float DetectionCooldown = 1f;
     
-    Player player;
+    PlayerController playerController;
     int currentHealth;
     Color defaultColor;
     Timer attackTimer;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        player = FindFirstObjectByType<Player>();
+        playerController = FindFirstObjectByType<PlayerController>();
         currentHealth = MaxHealth;
         ObjectRenderer = GetComponent<Renderer>();
         defaultColor = ObjectRenderer.material.color;
@@ -38,21 +38,21 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < AttackRange + .1f)
+        if (Vector3.Distance(playerController.transform.position, transform.position) < AttackRange + .1f)
         {
-            transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+            transform.LookAt(new Vector3(playerController.transform.position.x, transform.position.y, playerController.transform.position.z));
             
             if (!attackTimer.IsRunning)
             {
-                attackTimer.Start();
+                attackTimer.Run();
                 Attack();
             }
         }
 
-        var dir = (player.transform.position - transform.position);
+        var dir = (playerController.transform.position - transform.position);
 
-        if (Vector3.Distance(transform.position, player.transform.position) > AttackRange)
-            Agent.SetDestination(player.transform.position - dir.normalized * AttackRange);
+        if (Vector3.Distance(transform.position, playerController.transform.position) > AttackRange)
+            Agent.SetDestination(playerController.transform.position - dir.normalized * AttackRange);
 
 
         attackTimer.Tick(Time.deltaTime);
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
     {
         var projectile = Instantiate(Projectile, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
 
-        projectile.Init(player);
+        projectile.Init(playerController);
     }
 
     public void TakeDamage(int damage)
