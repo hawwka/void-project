@@ -16,7 +16,7 @@ public class IdleState : IState
 
     public void Update()
     {
-        playerController.HandleAiming();
+        
     }
 
     public void FixedUpdate()

@@ -19,9 +19,9 @@ public class AttackState : IState
 
     public void Update()
     {
-        playerController.SelectedWeapon.Attack();
-
         playerController.HandleAiming();
+        
+        playerController.SelectedWeapon.Attack();
     }
 
     public void FixedUpdate()

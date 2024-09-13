@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         
         var normalizedInput = movement.normalized.ToIso();
         var forwardTransform = model.forward;
-    
+
         if (isAiming)
         {
             Rb.MovePosition(transform.position + normalizedInput * (movementSpeed * aimSpeedPenaltyFactor * Time.deltaTime));
@@ -114,24 +114,18 @@ public class PlayerController : MonoBehaviour
         }
      
         Rb.MovePosition(transform.position + forwardTransform * (movementSpeed * Time.deltaTime));
+        model.rotation = Quaternion.LookRotation(movement.ToIso(), Vector3.up);
     }
 
     public void HandleAiming()
     {
-        if (isAiming)
-        {
-            var lookPos = Helpers.MouseToWorldPostion(input.MousePosition);
+        if (!isAiming) return;
+        
+        var lookPos = Helpers.MouseToWorldPostion(input.MousePosition);
             
-            lookPos.y = model.position.y;
+        lookPos.y = model.position.y;
 
-            model.LookAt(lookPos);
-            return;
-        }
-        
-        if (movement.magnitude < 0.1f)
-            return;
-        
-        model.rotation = Quaternion.LookRotation(movement.ToIso(), Vector3.up);
+        model.LookAt(lookPos);
     }
 
     void ProcessAimInput(bool isRMousePressed)
