@@ -314,17 +314,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f4d8f019-54ae-42c1-9f12-f621e033d085",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4ba3bca1-2b6c-4f7f-a06f-c9de44a2c50c",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

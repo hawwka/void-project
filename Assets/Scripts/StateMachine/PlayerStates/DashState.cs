@@ -32,9 +32,14 @@ public class DashState : IState
     
     void Dash()
     {
-        if (playerController.Movement == Vector3.zero)
+        if (playerController.Movement.magnitude < 0.1f)
+        {
             playerController.Rb.AddForce(playerController.Model.forward * playerController.DashForce, ForceMode.Impulse);
+        }
         else
+        {
+            playerController.Model.rotation = Quaternion.LookRotation(playerController.Movement.ToIso(), Vector3.up);
             playerController.Rb.AddForce(playerController.Movement.normalized.ToIso() * playerController.DashForce, ForceMode.Impulse);
+        }
     }
 }

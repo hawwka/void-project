@@ -54,25 +54,14 @@ public class PlayerController : MonoBehaviour
         var attackState = new AttackState(this);
         var idleState = new IdleState(this);
         var dashState = new DashState(this);
-        var dashAttackState = new DashAttackState(this);
-
-        CreateTransition(idleState, attackState, new FuncPredicate(() => isFiring));
-        CreateTransition(attackState, idleState, new FuncPredicate(() => !isFiring));
-        CreateTransition(idleState, dashState, new FuncPredicate(() => dashTimer.IsRunning));
-        CreateTransition(dashState, idleState, new FuncPredicate(() => !dashTimer.IsRunning));
-        CreateTransition(attackState, dashState, new FuncPredicate(() => dashTimer.IsRunning));
-        CreateTransition(dashState, dashAttackState, new FuncPredicate(() => isFiring));
-        CreateTransition(dashAttackState, attackState, new FuncPredicate(() => !dashTimer.IsRunning));
         
-        CreateAnyTransition(idleState, new FuncPredicate(() => !isFiring && !dashTimer.IsRunning));
+        stateMachine.AddAnyTransition(dashState, new FuncPredicate(() => dashTimer.IsRunning));
+        stateMachine.AddAnyTransition(idleState, new FuncPredicate(() => !isFiring && !dashTimer.IsRunning));
+        stateMachine.AddAnyTransition(attackState, new FuncPredicate(() => isFiring && !dashTimer.IsRunning));
 
         stateMachine.SetState(idleState);
     }
     
-    void CreateTransition(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
-
-    void CreateAnyTransition(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
-
     void OnEnable()
     {
         input.Fire += HandleFire;                  
