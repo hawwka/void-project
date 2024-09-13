@@ -56,7 +56,8 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        Dash.Invoke();
+        if(context.action.IsPressed())
+            Dash.Invoke();
     }
 
     public void OnPrimaryWeapon(InputAction.CallbackContext context)
