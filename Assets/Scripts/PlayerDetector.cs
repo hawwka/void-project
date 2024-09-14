@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerDetector : MonoBehaviour
@@ -5,6 +6,8 @@ public class PlayerDetector : MonoBehaviour
     [SerializeField] float detectionRadius = 10f; 
     [SerializeField] float attackRange = 2f;
 
+    public float AttackRange => attackRange;
+    
     public Transform Player { get; private set; }
 
     IDetectionStrategy detectionStrategy;
@@ -13,7 +16,12 @@ public class PlayerDetector : MonoBehaviour
     {
         Player = GameObject.FindWithTag("Player").transform;
     }
-    
+
+    void Start()
+    {
+        detectionStrategy = new DetectionStrategy(detectionRadius);
+    }
+
     public void SetDetectionStrategy(IDetectionStrategy detectionStrategy) // TODO Пробрасывать через DI контейнер
     {
         this.detectionStrategy = detectionStrategy;
@@ -21,7 +29,7 @@ public class PlayerDetector : MonoBehaviour
     
     public bool CanDetectPlayer()
     {
-        return Vector3.Distance(Player.position, transform.position) < detectionRadius;
+        return detectionStrategy.Execute(Player, transform);
     }
     
     public bool CanAttackPlayer()

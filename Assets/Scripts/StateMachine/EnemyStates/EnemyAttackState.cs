@@ -4,30 +4,28 @@ public class EnemyAttackState : IState
 {
     Enemy enemy;
     Transform player;
-    EnemyProjectile projectile;
     
-    public EnemyAttackState(Enemy enemy, EnemyProjectile projectile, Transform player)
+    public EnemyAttackState(Enemy enemy, Transform player)
     {
         this.enemy = enemy;
-        this.projectile = projectile;
         this.player = player;
     }
 
     public void OnEnter()
     {
-        projectile =  Object.Instantiate(projectile, player.position + player.TransformDirection(Vector3.forward), Quaternion.identity);
-
-        projectile.Init(player);
+        
     }
 
     public void OnExit()
     {
-
+        
     }
 
     public void Update()
     {
+        enemy.transform.LookAt(new Vector3(player.position.x, enemy.transform.position.y, player.position.z));
 
+        enemy.Attack();
     }
 
     public void FixedUpdate()

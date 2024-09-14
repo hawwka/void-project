@@ -5,69 +5,72 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] NavMeshAgent Agent;
-
-    [SerializeField] Renderer ObjectRenderer;
-    [SerializeField] EnemyProjectile Projectile;
-
-    [Header("Settings")]
-    [SerializeField] int MaxHealth = 100;
-
-    [SerializeField] float WalkableDistance = 2;
-    [SerializeField] float AttackRange = 5;
-    [SerializeField] float DetectingDistance = 10;
-    [SerializeField] float DetectingAngle = 30;
-    [SerializeField] float AttackCooldown = 1f;
-    [SerializeField] float DetectionCooldown = 1f;
+    [SerializeField] Renderer objectRenderer;
+    [SerializeField] EnemyProjectile projectilePrefab;
     
-    PlayerController playerController;
+    [Header("Settings")]
+    [SerializeField] int maxHealth = 100;
+    [SerializeField] float attackCooldown = 1f;
+    
+    IAttackStrategy attackStrategy; 
+    
+    PlayerDetector playerDetector;
+    NavMeshAgent agent;
     int currentHealth;
     Color defaultColor;
+    
     Timer attackTimer;
 
+    StateMachine stateMachine;
+
+
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        playerDetector = GetComponent<PlayerDetector>();
+    }
 
     private void Start()
     {
-        playerController = FindFirstObjectByType<PlayerController>();
-        currentHealth = MaxHealth;
-        ObjectRenderer = GetComponent<Renderer>();
-        defaultColor = ObjectRenderer.material.color;
+        SetupStateMachine();
+        
+        currentHealth = maxHealth; // TODO: сделать отдельный компонент отвечающий за хп сущностей и убрать это отсюда
+        objectRenderer = GetComponent<Renderer>();
+        defaultColor = objectRenderer.material.color;
 
-        attackTimer = new Timer(AttackCooldown);
+        attackTimer = new Timer(attackCooldown);
+    }
+
+    void SetupStateMachine()
+    {
+        stateMachine = new StateMachine();
+
+        var wanderState = new EnemyWanderState();
+        var attackState = new EnemyAttackState(this, playerDetector.Player);
+        var chaseState = new EnemyChaseState(this, playerDetector, agent);
+
+        stateMachine.AddTransition(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
+        stateMachine.AddTransition(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
+        stateMachine.AddTransition(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
+        stateMachine.AddTransition(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
+
+        stateMachine.SetState(wanderState);
     }
 
     private void Update()
     {
-        if (Vector3.Distance(playerController.transform.position, transform.position) < AttackRange + .1f)
-        {
-            transform.LookAt(new Vector3(playerController.transform.position.x, transform.position.y, playerController.transform.position.z));
-            
-            if (!attackTimer.IsRunning)
-            {
-                attackTimer.Run();
-                Attack();
-            }
-        }
-
-        var dir = (playerController.transform.position - transform.position);
-
-        if (Vector3.Distance(transform.position, playerController.transform.position) > AttackRange)
-            Agent.SetDestination(playerController.transform.position - dir.normalized * AttackRange);
-
-
+        stateMachine.Update();
+        
         attackTimer.Tick(Time.deltaTime);
     }
+    
+    
+    private void FixedUpdate() => stateMachine.FixedUpdate();
 
-    private void Attack()
+
+    public void TakeDamage(int damage) // TODO вынести в стейт EnemyTakeDamageState
     {
-        var projectile = Instantiate(Projectile, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
-
-        projectile.Init(playerController);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        ObjectRenderer.material.color = Color.red;
+        objectRenderer.material.color = Color.red;
 
         StopAllCoroutines();
         StartCoroutine(TakeDamageRoutine());
@@ -78,7 +81,19 @@ public class Enemy : MonoBehaviour
             Die();
     }
 
-    private IEnumerator TakeDamageRoutine()
+    public void Attack()
+    {
+        if (attackTimer.IsRunning)
+            return;
+        
+        attackTimer.Run();
+        
+        var projectile = Instantiate(projectilePrefab, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
+
+        projectile.Init(playerDetector.Player);
+    }
+
+    private IEnumerator TakeDamageRoutine() 
     {
         float t = 0f;
         float dur = .5f;
@@ -90,19 +105,19 @@ public class Enemy : MonoBehaviour
         {
             var newColor = Color.Lerp(start, end, t / dur);
 
-            ObjectRenderer.material.color = newColor;
+            objectRenderer.material.color = newColor;
 
             t += Time.deltaTime;
 
             yield return null;
         }
 
-        ObjectRenderer.material.color = end;
+        objectRenderer.material.color = end;
     }
-
 
     private void Die()
     {
         Destroy(gameObject);
     }
+
 }

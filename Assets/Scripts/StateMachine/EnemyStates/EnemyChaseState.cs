@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyChaseState : IState
 {
     Enemy enemy;
-    Transform player;
+    PlayerDetector playerDetector;
+    NavMeshAgent agent;
     
-    public EnemyChaseState(Enemy enemy, Transform player)
+    public EnemyChaseState(Enemy enemy,  PlayerDetector playerDetector, NavMeshAgent agent)
     {
         this.enemy = enemy;
-        this.player = player;
+        this.agent = agent;
+        this.playerDetector = playerDetector;
     }
 
     public void OnEnter()
@@ -23,9 +26,16 @@ public class EnemyChaseState : IState
 
     public void Update()
     {
-        // enemy.transform.LookAt(new Vector3(player.position.x, enemy.transform.position.y, player.position.z));
-        // enemy.transform.position += enemy.transform.forward * enemy.Speed * Time.deltaTime;
+        var player = playerDetector.Player;
+        
+        enemy.transform.LookAt(new Vector3(player.position.x, enemy.transform.position.y, player.position.z));
 
+        if (!playerDetector.CanDetectPlayer()) 
+            return;
+        
+        var dir = player.position - enemy.transform.position;
+        
+        agent.SetDestination(player.position - dir.normalized * playerDetector.AttackRange);
     }
 
     public void FixedUpdate()

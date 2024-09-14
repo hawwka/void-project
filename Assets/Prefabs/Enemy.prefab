@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4470029634430987772}
   - component: {fileID: 6836260713303202547}
   - component: {fileID: 4880071765665883932}
+  - component: {fileID: 1720385252277565815}
   - component: {fileID: 8345714759845908752}
   - component: {fileID: 222518107739972859}
   m_Layer: 0
@@ -101,16 +102,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77b6cac00af65344936f65d1e67175a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 8345714759845908752}
-  ObjectRenderer: {fileID: 6836260713303202547}
-  Projectile: {fileID: 2205459263717733945, guid: 8f58a7daf268e33438da33e67939e86a, type: 3}
-  MaxHealth: 100
-  WalkableDistance: 2
-  AttackRange: 15
-  DetectingDistance: 10
-  DetectingAngle: 30
-  AttackCooldown: 1
-  DetectionCooldown: 1
+  objectRenderer: {fileID: 6836260713303202547}
+  projectilePrefab: {fileID: 2205459263717733945, guid: 8f58a7daf268e33438da33e67939e86a, type: 3}
+  maxHealth: 100
+  attackRange: 5
+  attackCooldown: 1
+  detectionRange: 10
+--- !u!114 &1720385252277565815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478632805596775772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952ec49c51b34b17ae144eb240a435f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 15
+  attackRange: 10
 --- !u!195 &8345714759845908752
 NavMeshAgent:
   m_ObjectHideFlags: 0

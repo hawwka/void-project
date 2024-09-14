@@ -7,8 +7,8 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] float accelerationMagnitude = 1f;
     [SerializeField] float DetonateRadius = .3f;
     [SerializeField] float LifeTime = 5f;
-    
-    PlayerController playerController;
+
+    Transform player;
     Rigidbody rb;
     
     private Vector3 acceleration;
@@ -16,9 +16,9 @@ public class EnemyProjectile : MonoBehaviour
     private Timer lifeTimeTimer;
     
     
-    public void Init(PlayerController playerController)
+    public void Init(Transform player)
     {
-        this.playerController = playerController;
+        this.player = player;
     }
 
     private void Start()
@@ -33,7 +33,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         lifeTimeTimer.Tick(Time.fixedDeltaTime);
         
-        var dir = (playerController.transform.position - transform.position).normalized;
+        var dir = (player.position - transform.position).normalized;
         
         dir.y = transform.position.y;
 
@@ -46,7 +46,7 @@ public class EnemyProjectile : MonoBehaviour
         if (!lifeTimeTimer.IsRunning)
             Destroy(gameObject);
         
-        if (!(Vector3.Distance(playerController.transform.position, transform.position) <= DetonateRadius)) 
+        if (!(Vector3.Distance(player.position, transform.position) <= DetonateRadius)) 
             return;
         
         Destroy(gameObject);
