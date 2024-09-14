@@ -479,6 +479,7 @@ MonoBehaviour:
   aimSpeedPenaltyFactor: 0.4
   dashForce: 50
   dashDuration: 0.25
+  rotationSpeed: 1600
 --- !u!1001 &325048324588970308
 PrefabInstance:
   m_ObjectHideFlags: 0

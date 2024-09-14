@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float aimSpeedPenaltyFactor = 0.4f;
     [SerializeField] float dashForce = 50;
     [SerializeField] float dashDuration = 0.25f;
-    [SerializeField] private float rotationSpeed = 100f;
+    [SerializeField] private float rotationSpeed = 1600f;
 
     public Weapon SelectedWeapon { get; private set; }
     public Rigidbody Rb { get; private set; }
