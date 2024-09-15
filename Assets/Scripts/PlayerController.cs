@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashForce = 50;
     [SerializeField] float dashDuration = 0.25f;
     [SerializeField] private float rotationSpeed = 1600f;
+    
+    private Quaternion targetRotation;
 
     public Weapon SelectedWeapon { get; private set; }
     public Rigidbody Rb { get; private set; }
@@ -118,6 +120,11 @@ public class PlayerController : MonoBehaviour
         model.rotation = Quaternion.RotateTowards(model.rotation, Quaternion.LookRotation(normalizedInput), rotationSpeed * Time.deltaTime);
     }
 
+    public bool IsRotationStopped()
+    {
+        return model.rotation == targetRotation;
+    }
+    
     public void HandleAiming()
     {
         if (!isAiming) return;
@@ -126,7 +133,10 @@ public class PlayerController : MonoBehaviour
             
         lookPos.y = model.position.y;
 
-        model.LookAt(lookPos);
+        targetRotation = Quaternion.LookRotation(lookPos - transform.position);
+        
+        // model.LookAt(lookPos);
+        model.rotation = Quaternion.RotateTowards(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     void ProcessAimInput(bool isRMousePressed)

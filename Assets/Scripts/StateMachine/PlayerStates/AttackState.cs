@@ -21,7 +21,8 @@ public class AttackState : IState
     {
         playerController.HandleAiming();
         
-        playerController.SelectedWeapon.Attack();
+        if(playerController.IsRotationStopped())
+            playerController.SelectedWeapon.Attack();
     }
 
     public void FixedUpdate()

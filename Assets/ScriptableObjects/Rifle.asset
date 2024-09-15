@@ -16,4 +16,4 @@ MonoBehaviour:
   DelayAftetShot: 0.05
   Range: 40
   Damage: 10
-  MaxRecoil: 0.25
+  MaxRecoil: 0
