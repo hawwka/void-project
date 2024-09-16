@@ -33,7 +33,7 @@ public class Shotgun : Weapon
             }
 
             if (hit.collider.TryGetComponent<Enemy>(out var component))
-                component.TakeDamage(WeaponConfigSo.Damage / pelletsAmount);
+                component.SetDamage(WeaponConfigSo.Damage / pelletsAmount);
 
             visualEffect.ShowTracer(origin, dir, hit.distance, 200f);
         }

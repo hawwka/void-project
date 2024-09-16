@@ -23,6 +23,9 @@ public class Enemy : MonoBehaviour
 
     StateMachine stateMachine;
 
+    public int currentTakenDamage;
+    public bool playerDetected = false;
+
 
     void Awake()
     {
@@ -48,11 +51,15 @@ public class Enemy : MonoBehaviour
         var wanderState = new EnemyWanderState();
         var attackState = new EnemyAttackState(this, playerDetector.Player);
         var chaseState = new EnemyChaseState(this, playerDetector, agent);
+        var takeDamageState = new EnemyTakeDamageState(this);
 
         stateMachine.AddTransition(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         stateMachine.AddTransition(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         stateMachine.AddTransition(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
         stateMachine.AddTransition(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
+        
+        stateMachine.AddAnyTransition(takeDamageState, new FuncPredicate(() => IsTakingDamage()));
+        stateMachine.AddTransition(takeDamageState, chaseState, new FuncPredicate(() => !IsTakingDamage()));
 
         stateMachine.SetState(wanderState);
     }
@@ -67,15 +74,20 @@ public class Enemy : MonoBehaviour
     
     private void FixedUpdate() => stateMachine.FixedUpdate();
 
+    public void SetDamage(int damage)
+    {
+        playerDetected = true;
+        currentTakenDamage = damage;
+    }
 
-    public void TakeDamage(int damage) // TODO вынести в стейт EnemyTakeDamageState
+    public void TakeDamage() // TODO вынести в стейт EnemyTakeDamageState
     {
         objectRenderer.material.color = Color.red;
 
         StopAllCoroutines();
         StartCoroutine(TakeDamageRoutine());
 
-        currentHealth -= damage;
+        currentHealth -= currentTakenDamage;
 
         if (currentHealth <= 0)
             Die();
@@ -114,10 +126,14 @@ public class Enemy : MonoBehaviour
 
         objectRenderer.material.color = end;
     }
-
+    
     private void Die()
     {
         Destroy(gameObject);
     }
 
+    private bool IsTakingDamage()
+    {
+        return currentTakenDamage > 0;
+    }
 }

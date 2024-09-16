@@ -30,7 +30,7 @@ public class EnemyChaseState : IState
         
         enemy.transform.LookAt(new Vector3(player.position.x, enemy.transform.position.y, player.position.z));
 
-        if (!playerDetector.CanDetectPlayer()) 
+        if (!playerDetector.CanDetectPlayer() && !enemy.playerDetected) 
             return;
         
         var dir = player.position - enemy.transform.position;
