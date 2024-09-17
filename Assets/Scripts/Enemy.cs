@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     StateMachine stateMachine;
 
-    public int currentTakenDamage;
+    public int currentakenDamage;
     public bool playerDetected = false;
 
 
