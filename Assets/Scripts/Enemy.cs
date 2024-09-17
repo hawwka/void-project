@@ -75,14 +75,14 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate() => stateMachine.FixedUpdate();
 
-    public void SetDamage(int damage)
+    public void TakeDamage(int damage)
     {
         isDamageTaken = true;
 
         currentHealth -= damage;
     }
 
-    public void TakeDamage()
+    public void ProcessDamageTaken()
     {
         isDamageTaken = false;
 

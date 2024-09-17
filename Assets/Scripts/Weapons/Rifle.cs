@@ -26,7 +26,7 @@ public class Rifle : Weapon
         }
 
         if (hit.collider.TryGetComponent<Enemy>(out var component))
-            component.SetDamage(WeaponConfigSo.Damage);
+            component.TakeDamage(WeaponConfigSo.Damage);
         
         visualEffect.ShowTracer(origin, dir, hit.distance, 200f);
     }

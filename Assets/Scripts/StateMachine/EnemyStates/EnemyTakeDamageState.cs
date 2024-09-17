@@ -11,7 +11,7 @@ public class EnemyTakeDamageState : IState
     
     public void OnEnter()
     {
-        enemy.TakeDamage();
+        enemy.ProcessDamageTaken();
     }
 
     public void Update()
