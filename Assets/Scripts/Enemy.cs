@@ -6,26 +6,27 @@ public class Enemy : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Renderer objectRenderer;
+
     [SerializeField] EnemyProjectile projectilePrefab;
-    
+
     [Header("Settings")]
     [SerializeField] int maxHealth = 100;
+
     [SerializeField] float attackCooldown = 1f;
-    
-    IAttackStrategy attackStrategy; 
-    
+
+    IAttackStrategy attackStrategy;
+
     PlayerDetector playerDetector;
     NavMeshAgent agent;
     int currentHealth;
     Color defaultColor;
-    
+
     Timer attackTimer;
 
     StateMachine stateMachine;
 
-    public int currentakenDamage;
-    public bool playerDetected = false;
 
+    bool isDamageTaken;
 
     void Awake()
     {
@@ -36,7 +37,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         SetupStateMachine();
-        
+
         currentHealth = maxHealth; // TODO: сделать отдельный компонент отвечающий за хп сущностей и убрать это отсюда
         objectRenderer = GetComponent<Renderer>();
         defaultColor = objectRenderer.material.color;
@@ -57,9 +58,9 @@ public class Enemy : MonoBehaviour
         stateMachine.AddTransition(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         stateMachine.AddTransition(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
         stateMachine.AddTransition(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
-        
-        stateMachine.AddAnyTransition(takeDamageState, new FuncPredicate(() => IsTakingDamage()));
-        stateMachine.AddTransition(takeDamageState, chaseState, new FuncPredicate(() => !IsTakingDamage()));
+
+        stateMachine.AddAnyTransition(takeDamageState, new FuncPredicate(() => isDamageTaken));
+        stateMachine.AddTransition(takeDamageState, chaseState, new FuncPredicate(() => !isDamageTaken));
 
         stateMachine.SetState(wanderState);
     }
@@ -67,27 +68,32 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         stateMachine.Update();
-        
+
         attackTimer.Tick(Time.deltaTime);
     }
-    
-    
+
+
     private void FixedUpdate() => stateMachine.FixedUpdate();
 
     public void SetDamage(int damage)
     {
-        playerDetected = true;
-        currentTakenDamage = damage;
+        isDamageTaken = true;
+
+        currentHealth -= damage;
     }
 
-    public void TakeDamage() // TODO вынести в стейт EnemyTakeDamageState
+    public void TakeDamage()
     {
+        isDamageTaken = false;
+
+        #region TakingDamageLogic
+
         objectRenderer.material.color = Color.red;
 
         StopAllCoroutines();
         StartCoroutine(TakeDamageRoutine());
 
-        currentHealth -= currentTakenDamage;
+        #endregion
 
         if (currentHealth <= 0)
             Die();
@@ -97,15 +103,15 @@ public class Enemy : MonoBehaviour
     {
         if (attackTimer.IsRunning)
             return;
-        
+
         attackTimer.Run();
-        
+
         var projectile = Instantiate(projectilePrefab, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
 
         projectile.Init(playerDetector.Player);
     }
 
-    private IEnumerator TakeDamageRoutine() 
+    private IEnumerator TakeDamageRoutine()
     {
         float t = 0f;
         float dur = .5f;
@@ -126,14 +132,9 @@ public class Enemy : MonoBehaviour
 
         objectRenderer.material.color = end;
     }
-    
+
     private void Die()
     {
         Destroy(gameObject);
-    }
-
-    private bool IsTakingDamage()
-    {
-        return currentTakenDamage > 0;
     }
 }

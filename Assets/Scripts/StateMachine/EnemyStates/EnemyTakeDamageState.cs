@@ -12,7 +12,6 @@ public class EnemyTakeDamageState : IState
     public void OnEnter()
     {
         enemy.TakeDamage();
-        enemy.currentTakenDamage = 0;
     }
 
     public void Update()
