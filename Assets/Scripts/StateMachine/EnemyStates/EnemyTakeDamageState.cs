@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyTakeDamageState : IState
 {
-    Enemy enemy;
+    EnemyBase enemy;
 
-    public EnemyTakeDamageState(Enemy enemy)
+    public EnemyTakeDamageState(EnemyBase enemy)
     {
         this.enemy = enemy;
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1289098561623354136
+--- !u!1001 &2539427950226057160
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -48,42 +48,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1720385252277565815, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6478632805596775772, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
       propertyPath: m_Name
-      value: EnemyRanged
+      value: EnemyMelee
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8345714759845908752, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
+      propertyPath: m_Speed
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4880071765665883932, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6478632805596775772, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7486667877352878115}
+      addedObject: {fileID: 7590085101504997031}
   m_SourcePrefab: {fileID: 100100000, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
---- !u!1 &5191373260923547204 stripped
+--- !u!1 &8851093283387335316 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6478632805596775772, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
-  m_PrefabInstance: {fileID: 1289098561623354136}
+  m_PrefabInstance: {fileID: 2539427950226057160}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7486667877352878115
+--- !u!114 &7590085101504997031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191373260923547204}
+  m_GameObject: {fileID: 8851093283387335316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c77b6cac00af65344936f65d1e67175a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f8934e690d4f054390856e7c408212c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectRenderer: {fileID: 5709590889381474795}
-  projectilePrefab: {fileID: 2205459263717733945, guid: 8f58a7daf268e33438da33e67939e86a, type: 3}
+  objectRenderer: {fileID: 9070982621018291515}
   maxHealth: 100
   attackCooldown: 1
   isDamageTaken: 0
---- !u!23 &5709590889381474795 stripped
+--- !u!23 &9070982621018291515 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6836260713303202547, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
-  m_PrefabInstance: {fileID: 1289098561623354136}
+  m_PrefabInstance: {fileID: 2539427950226057160}
   m_PrefabAsset: {fileID: 0}

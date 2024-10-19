@@ -3,11 +3,11 @@ using UnityEngine.AI;
 
 public class EnemyChaseState : IState
 {
-    Enemy enemy;
+    EnemyBase enemy;
     PlayerDetector playerDetector;
     NavMeshAgent agent;
     
-    public EnemyChaseState(Enemy enemy,  PlayerDetector playerDetector, NavMeshAgent agent)
+    public EnemyChaseState(EnemyBase enemy,  PlayerDetector playerDetector, NavMeshAgent agent)
     {
         this.enemy = enemy;
         this.agent = agent;

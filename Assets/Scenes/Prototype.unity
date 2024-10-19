@@ -658,6 +658,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1387839475}
+  - {fileID: 1940558667}
   - {fileID: 591846909}
   - {fileID: 895020635}
   m_Father: {fileID: 0}
@@ -1009,6 +1010,55 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2e65cc46d944398459a680048f597c2d, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &1940558666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1940558667}
+  - component: {fileID: 1940558668}
+  m_Layer: 0
+  m_Name: MeleeEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1940558667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940558666}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 28.273186, y: 0.55755484, z: 28.255457}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1441038491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1940558668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940558666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a9c194d19d7a2408db599d27eb5b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPrefab: {fileID: 8851093283387335316, guid: e92bcd5827446be43954d43be831ef2d, type: 3}
+  Parent: {fileID: 1940558667}
+  SpawnAtStartup: 1
+  Number: 5
+  SpawnRadius: 50
 --- !u!4 &193345152888645093
 Transform:
   m_ObjectHideFlags: 0

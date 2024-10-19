@@ -2,51 +2,54 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public class Enemy : MonoBehaviour
+public class EnemyMelee : EnemyBase
 {
     [Header("References")]
     [SerializeField] Renderer objectRenderer;
-
-    [SerializeField] EnemyProjectile projectilePrefab;
 
     [Header("Settings")]
     [SerializeField] int maxHealth = 100;
 
     [SerializeField] float attackCooldown = 1f;
-
-    IAttackStrategy attackStrategy;
-
+    
+    public bool isDamageTaken;
+    
     PlayerDetector playerDetector;
     NavMeshAgent agent;
     int currentHealth;
-    Color defaultColor;
-
     Timer attackTimer;
-
     StateMachine stateMachine;
+    
+    Color defaultColor;
+    
+    IAttackStrategy attackStrategy;
 
-
-    bool isDamageTaken;
-
-    void Awake()
+    protected override void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         playerDetector = GetComponent<PlayerDetector>();
     }
-
-    private void Start()
+    
+    protected override void Update()
     {
-        SetupStateMachine();
+        stateMachine.Update();
 
-        currentHealth = maxHealth; // TODO: сделать отдельный компонент отвечающий за хп сущностей и убрать это отсюда
+        attackTimer.Tick(Time.deltaTime);
+    }
+    
+    protected override void FixedUpdate() => stateMachine.FixedUpdate();
+    
+    protected override void Start()
+    {
+        base.Start();
+        currentHealth = maxHealth;
         objectRenderer = GetComponent<Renderer>();
         defaultColor = objectRenderer.material.color;
 
         attackTimer = new Timer(attackCooldown);
     }
-
-    void SetupStateMachine()
+    
+    protected override void SetupStateMachine()
     {
         stateMachine = new StateMachine();
 
@@ -65,25 +68,23 @@ public class Enemy : MonoBehaviour
 
         stateMachine.SetState(wanderState);
     }
-
-    private void Update()
-    {
-        stateMachine.Update();
-
-        attackTimer.Tick(Time.deltaTime);
-    }
-
-
-    private void FixedUpdate() => stateMachine.FixedUpdate();
-
-    public void TakeDamage(int damage)
+    
+    public override void TakeDamage(int damage)
     {
         isDamageTaken = true;
 
         currentHealth -= damage;
     }
 
-    public void ProcessDamageTaken()
+    public override void Attack()
+    {
+        if (attackTimer.IsRunning)
+            return;
+
+        attackTimer.Run();
+    }
+    
+    public override void ProcessDamageTaken()
     {
         isDamageTaken = false;
 
@@ -99,20 +100,8 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
             Die();
     }
-
-    public void Attack()
-    {
-        if (attackTimer.IsRunning)
-            return;
-
-        attackTimer.Run();
-
-        var projectile = Instantiate(projectilePrefab, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
-
-        projectile.Init(playerDetector.Player);
-    }
-
-    private IEnumerator TakeDamageRoutine()
+    
+    IEnumerator TakeDamageRoutine()
     {
         float t = 0f;
         float dur = .5f;
@@ -133,8 +122,8 @@ public class Enemy : MonoBehaviour
 
         objectRenderer.material.color = end;
     }
-
-    private void Die()
+    
+    void Die()
     {
         Destroy(gameObject);
     }

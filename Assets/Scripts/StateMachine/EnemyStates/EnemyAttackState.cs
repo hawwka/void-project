@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class EnemyAttackState : IState
 {
-    Enemy enemy;
+    EnemyBase enemy;
     Transform player;
     
-    public EnemyAttackState(Enemy enemy, Transform player)
+    public EnemyAttackState(EnemyBase enemy, Transform player)
     {
         this.enemy = enemy;
         this.player = player;
