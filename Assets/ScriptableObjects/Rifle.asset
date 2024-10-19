@@ -15,5 +15,5 @@ MonoBehaviour:
   ChargeTime: 0
   DelayAftetShot: 0.05
   Range: 40
-  Damage: 10
+  Damage: 5
   MaxRecoil: 0
