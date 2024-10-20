@@ -13,6 +13,9 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     
     public event UnityAction Building = delegate {  };
     
+    public event UnityAction<bool> RotateLeft = delegate {  };
+    public event UnityAction<bool> RotateRight = delegate {  };
+    
 
     private InputActions inputActions;
 
@@ -45,6 +48,32 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public void OnBuilding(InputAction.CallbackContext context)
     {
         Building.Invoke();
+    }
+
+    public void OnRotateLeft(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                RotateLeft.Invoke(true);
+                break;
+            case InputActionPhase.Canceled:
+                RotateLeft.Invoke(false);
+                break;
+        }
+    }
+
+    public void OnRotateRight(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                RotateRight.Invoke(true);
+                break;
+            case InputActionPhase.Canceled:
+                RotateRight.Invoke(false);
+                break;
+        }
     }
 
     public void OnFire(InputAction.CallbackContext context)
