@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Weapon> weapons = new();
     [SerializeField] Transform model;
 
-    [Header("Settings")]
+    [Header("Settings")] [SerializeField] float health = 100f;
     [SerializeField] float movementSpeed = 8;
     [SerializeField] float aimSpeedPenaltyFactor = 0.4f;
     [SerializeField] float dashForce = 50;
@@ -174,5 +174,19 @@ public class PlayerController : MonoBehaviour
     void HandleFire(bool fireButtonPressed)
     {
         isFiring = fireButtonPressed;
+    }
+
+    public void HandleDamage(float damage)
+    {
+        health -= damage;
+        print(health);
+        if (health <= 0)
+        {
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }

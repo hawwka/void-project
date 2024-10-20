@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -45,10 +46,14 @@ public class EnemyProjectile : MonoBehaviour
 
         if (!lifeTimeTimer.IsRunning)
             Destroy(gameObject);
-        
-        if (!(Vector3.Distance(player.position, transform.position) <= DetonateRadius)) 
-            return;
-        
-        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerController>(out var component))
+        {
+            component.HandleDamage(10);
+            Destroy(gameObject);
+        }
     }
 }
