@@ -19,9 +19,10 @@ public abstract class EnemyBase : MonoBehaviour
 
     public abstract void Attack();
     
-    public abstract void TakeDamage(int damage);
+    public abstract void TakeDamage();
+    
+    public abstract void Die();
     
     // Are called only from override methods
     // protected abstract IEnumerator TakeDamageRoutine();
-    // protected abstract void Die();
 }

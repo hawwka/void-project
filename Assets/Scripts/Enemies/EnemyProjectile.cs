@@ -4,10 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] float VelocityMagnitude = 5f;
+    [SerializeField] float velocityMagnitude = 5f;
     [SerializeField] float accelerationMagnitude = 1f;
-    [SerializeField] float DetonateRadius = .3f;
+    [SerializeField] float detonateRadius = .3f;
     [SerializeField] float LifeTime = 5f;
+    [SerializeField] float damage = 10;
 
     Transform player;
     Rigidbody rb;
@@ -42,18 +43,20 @@ public class EnemyProjectile : MonoBehaviour
         acceleration *= accelerationMagnitude;
 
         rb.linearVelocity += acceleration;
-        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, VelocityMagnitude);
+        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, velocityMagnitude);
 
         if (!lifeTimeTimer.IsRunning)
             Destroy(gameObject);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent<PlayerController>(out var component))
+        
+        if (!(Vector3.Distance(player.position, transform.position) <= detonateRadius))
+            return;
+        
+        if (player.gameObject.TryGetComponent<HealthController>(out var component))
         {
-            component.HandleDamage(10);
+            component.TakeDamage(damage);
             Destroy(gameObject);
         }
+        
+        Destroy(gameObject);
     }
 }

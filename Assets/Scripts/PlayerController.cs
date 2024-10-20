@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1600f;
     
     private Quaternion targetRotation;
-
+    
     public Weapon SelectedWeapon { get; private set; }
     public Rigidbody Rb { get; private set; }
     public Vector3 Movement => movement;
@@ -175,16 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         isFiring = fireButtonPressed;
     }
-
-    public void HandleDamage(float damage)
-    {
-        health -= damage;
-        print(health);
-        if (health <= 0)
-        {
-        }
-    }
-
+    
     void Die()
     {
         Destroy(gameObject);

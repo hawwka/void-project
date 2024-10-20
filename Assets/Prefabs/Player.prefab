@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 5379416213111261416}
   - component: {fileID: 8489353108938620864}
   - component: {fileID: 8773473256202341033}
+  - component: {fileID: -2053627789714952289}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -475,11 +476,29 @@ MonoBehaviour:
   - {fileID: 4771089883627159029}
   - {fileID: 2243913388131542185}
   model: {fileID: 5101449677537805517}
+  health: 100
   movementSpeed: 8
   aimSpeedPenaltyFactor: 0.4
   dashForce: 50
   dashDuration: 0.25
   rotationSpeed: 1600
+--- !u!114 &-2053627789714952289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242193780407867909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8f48e0a93b8354eb419ca356f530e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  OnHealthEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &325048324588970308
 PrefabInstance:
   m_ObjectHideFlags: 0

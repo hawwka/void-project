@@ -72,11 +72,9 @@ public class EnemyRanged : EnemyBase
         stateMachine.SetState(wanderState);
     }
     
-    public override void TakeDamage(int damage)
+    public override void TakeDamage()
     {
         isDamageTaken = true;
-
-        currentHealth -= damage;
     }
 
     public override void Attack()
@@ -103,9 +101,6 @@ public class EnemyRanged : EnemyBase
         StartCoroutine(TakeDamageRoutine());
 
         #endregion
-
-        if (currentHealth <= 0)
-            Die();
     }
     
     IEnumerator TakeDamageRoutine()
@@ -130,7 +125,7 @@ public class EnemyRanged : EnemyBase
         objectRenderer.material.color = end;
     }
     
-    void Die()
+    public override void Die()
     {
         Destroy(gameObject);
     }
