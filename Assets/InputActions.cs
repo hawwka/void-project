@@ -51,7 +51,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""id"": ""94b780ff-545c-4350-af65-b8e1c071d972"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -91,7 +91,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Aim"",
+                    ""name"": ""MouseRightClick"",
                     ""type"": ""Button"",
                     ""id"": ""ad8abbdc-a6f0-4987-b059-e10f82aca31e"",
                     ""expectedControlType"": """",
@@ -384,11 +384,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4ba3bca1-2b6c-4f7f-a06f-c9de44a2c50c"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Aim"",
+                    ""action"": ""MouseRightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1016,7 +1016,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Alpha1 = m_Player.FindAction("Alpha1", throwIfNotFound: true);
         m_Player_Alpha2 = m_Player.FindAction("Alpha2", throwIfNotFound: true);
         m_Player_Alpha3 = m_Player.FindAction("Alpha3", throwIfNotFound: true);
-        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
+        m_Player_MouseRightClick = m_Player.FindAction("MouseRightClick", throwIfNotFound: true);
         m_Player_Building = m_Player.FindAction("Building", throwIfNotFound: true);
         m_Player_RotateLeft = m_Player.FindAction("RotateLeft", throwIfNotFound: true);
         m_Player_RotateRight = m_Player.FindAction("RotateRight", throwIfNotFound: true);
@@ -1106,7 +1106,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Alpha1;
     private readonly InputAction m_Player_Alpha2;
     private readonly InputAction m_Player_Alpha3;
-    private readonly InputAction m_Player_Aim;
+    private readonly InputAction m_Player_MouseRightClick;
     private readonly InputAction m_Player_Building;
     private readonly InputAction m_Player_RotateLeft;
     private readonly InputAction m_Player_RotateRight;
@@ -1121,7 +1121,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Alpha1 => m_Wrapper.m_Player_Alpha1;
         public InputAction @Alpha2 => m_Wrapper.m_Player_Alpha2;
         public InputAction @Alpha3 => m_Wrapper.m_Player_Alpha3;
-        public InputAction @Aim => m_Wrapper.m_Player_Aim;
+        public InputAction @MouseRightClick => m_Wrapper.m_Player_MouseRightClick;
         public InputAction @Building => m_Wrapper.m_Player_Building;
         public InputAction @RotateLeft => m_Wrapper.m_Player_RotateLeft;
         public InputAction @RotateRight => m_Wrapper.m_Player_RotateRight;
@@ -1155,9 +1155,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Alpha3.started += instance.OnAlpha3;
             @Alpha3.performed += instance.OnAlpha3;
             @Alpha3.canceled += instance.OnAlpha3;
-            @Aim.started += instance.OnAim;
-            @Aim.performed += instance.OnAim;
-            @Aim.canceled += instance.OnAim;
+            @MouseRightClick.started += instance.OnMouseRightClick;
+            @MouseRightClick.performed += instance.OnMouseRightClick;
+            @MouseRightClick.canceled += instance.OnMouseRightClick;
             @Building.started += instance.OnBuilding;
             @Building.performed += instance.OnBuilding;
             @Building.canceled += instance.OnBuilding;
@@ -1192,9 +1192,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Alpha3.started -= instance.OnAlpha3;
             @Alpha3.performed -= instance.OnAlpha3;
             @Alpha3.canceled -= instance.OnAlpha3;
-            @Aim.started -= instance.OnAim;
-            @Aim.performed -= instance.OnAim;
-            @Aim.canceled -= instance.OnAim;
+            @MouseRightClick.started -= instance.OnMouseRightClick;
+            @MouseRightClick.performed -= instance.OnMouseRightClick;
+            @MouseRightClick.canceled -= instance.OnMouseRightClick;
             @Building.started -= instance.OnBuilding;
             @Building.performed -= instance.OnBuilding;
             @Building.canceled -= instance.OnBuilding;
@@ -1393,7 +1393,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAlpha1(InputAction.CallbackContext context);
         void OnAlpha2(InputAction.CallbackContext context);
         void OnAlpha3(InputAction.CallbackContext context);
-        void OnAim(InputAction.CallbackContext context);
+        void OnMouseRightClick(InputAction.CallbackContext context);
         void OnBuilding(InputAction.CallbackContext context);
         void OnRotateLeft(InputAction.CallbackContext context);
         void OnRotateRight(InputAction.CallbackContext context);

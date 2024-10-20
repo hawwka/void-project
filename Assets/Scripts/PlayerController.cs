@@ -14,11 +14,9 @@ public class PlayerController : MonoBehaviour
     BuildingSystem buildingSystem;
     
     [Header("Settings"), SerializeField] 
-    float health = 100f;
-    [SerializeField] 
     float movementSpeed = 8;
     [SerializeField] 
-    float aimSpeedPenaltyFactor = 0.4f;
+    float firePenalty = 0.4f;
     [SerializeField] 
     float dashForce = 50;
     [SerializeField] 
@@ -35,10 +33,8 @@ public class PlayerController : MonoBehaviour
     public float DashForce => dashForce;
 
     bool isFiring;
-    bool isAiming;
     bool isBuilding;
-
-
+    
     Vector3 movement;
    
     StateMachine stateMachine;
@@ -88,7 +84,6 @@ public class PlayerController : MonoBehaviour
     {
         input.Fire += HandleFire;                  
         input.Dash += OnDash;
-        input.Aim += ProcessAimInput;
         input.Building += OnBuiding;
     }
     
@@ -96,7 +91,6 @@ public class PlayerController : MonoBehaviour
     {
         input.Fire -= HandleFire; 
         input.Dash -= OnDash;
-        input.Aim -= ProcessAimInput;
         input.Building -= OnBuiding;
     }
 
@@ -131,9 +125,9 @@ public class PlayerController : MonoBehaviour
         
         var normalizedInput = movement.normalized.ToIso();
 
-        if (isAiming)
+        if (isFiring)
         {
-            Rb.MovePosition(transform.position + normalizedInput * (movementSpeed * aimSpeedPenaltyFactor * Time.deltaTime));
+            Rb.MovePosition(transform.position + normalizedInput * (movementSpeed * firePenalty * Time.deltaTime));
             return;
         }
      
@@ -147,10 +141,8 @@ public class PlayerController : MonoBehaviour
         return model.rotation == targetRotation;
     }
     
-    public void HandleAiming()
+    public void Aim()
     {
-        if (!isAiming) return;
-        
         var lookPos = Helpers.MouseToWorldPostion(input.MousePosition);
             
         lookPos.y = model.position.y;
@@ -159,12 +151,7 @@ public class PlayerController : MonoBehaviour
         
         model.rotation = Quaternion.RotateTowards(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
-
-    void ProcessAimInput(bool isRMousePressed)
-    {
-        isAiming = isRMousePressed;
-    }
-
+    
     public void SelectWeapon(int weaponIndex)
     {
         SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = false;
@@ -182,9 +169,9 @@ public class PlayerController : MonoBehaviour
         SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 
-    void HandleFire(bool fireButtonPressed)
+    void HandleFire(bool value)
     {
-        isFiring = fireButtonPressed;
+        isFiring = value;
     }
     
     void Die()

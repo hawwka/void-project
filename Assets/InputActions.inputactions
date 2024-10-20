@@ -29,7 +29,7 @@
                     "id": "94b780ff-545c-4350-af65-b8e1c071d972",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Aim",
+                    "name": "MouseRightClick",
                     "type": "Button",
                     "id": "ad8abbdc-a6f0-4987-b059-e10f82aca31e",
                     "expectedControlType": "",
@@ -362,11 +362,11 @@
                 {
                     "name": "",
                     "id": "4ba3bca1-2b6c-4f7f-a06f-c9de44a2c50c",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Aim",
+                    "action": "MouseRightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

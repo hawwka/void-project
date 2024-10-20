@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class Constructuble : MonoBehaviour
 {
-    public Marker Marker;
+    public PhantomBuilding Phantom;
     public GameObject Model;
     
 
     public void Construct()
     {
-        Marker.gameObject.SetActive(false);
+        Phantom.gameObject.SetActive(false);
         Model.SetActive(true);
+    }
+    
+    public void Deconstruct()
+    {
+        Destroy(gameObject);
     }
 }

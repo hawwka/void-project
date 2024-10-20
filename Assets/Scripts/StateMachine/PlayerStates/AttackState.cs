@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class AttackState : IState
 {
     PlayerController playerController;
@@ -23,7 +25,7 @@ public class AttackState : IState
 
     public void Update()
     {
-        playerController.HandleAiming();
+        playerController.Aim();
         
         if (playerController.IsRotationStopped())
             playerController.SelectedWeapon.Attack();

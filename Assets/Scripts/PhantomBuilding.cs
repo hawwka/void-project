@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Marker : MonoBehaviour
+public class PhantomBuilding : MonoBehaviour
 {
     [SerializeField]
     Rigidbody rb;
@@ -8,8 +8,10 @@ public class Marker : MonoBehaviour
     [SerializeField]
     Renderer renderer;
     
+    
     int collisions = 0;
 
+    public float Alpha = 100f;
     public bool HasValidPlacement => collisions == 0;
     
     
@@ -29,14 +31,13 @@ public class Marker : MonoBehaviour
     
     void SetColor()
     {
-        if (HasValidPlacement)
+        if (!HasValidPlacement)
         {
-            renderer.material.color = Color.red;
+            renderer.material.color = new Color(Color.red.r, Color.red.g, Color.red.b, .5f);
         }
         else
         {
-            renderer.material.color = Color.green;
+            renderer.material.color = new Color(Color.green.r, Color.green.g, Color.green.b, .5f);
         }
     }
-    
 }

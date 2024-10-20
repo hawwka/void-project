@@ -6,16 +6,13 @@ using static InputActions;
 [CreateAssetMenu(fileName = "PlayerInputReader", menuName = "ScriptableObjects/Input/PlayerInputReader")]
 public class PlayerInputReader : ScriptableObject, IPlayerActions
 {
-    public event UnityAction Dash = delegate {  };
-    public event UnityAction<bool> Fire = delegate {  };
-    public event UnityAction<int> OnAlphaPressed = delegate {  };
-    public event UnityAction<bool> Aim = delegate {  };
-    
-    public event UnityAction Building = delegate {  };
-    
-    public event UnityAction<bool> RotateLeft = delegate {  };
-    public event UnityAction<bool> RotateRight = delegate {  };
-    
+    public event UnityAction Dash = delegate { };
+    public event UnityAction<bool> Fire = delegate { };
+    public event UnityAction<int> OnAlphaPressed = delegate { };
+    public event UnityAction Building = delegate { };
+    public event UnityAction<bool> RotateLeft = delegate { };
+    public event UnityAction<bool> RotateRight = delegate { };
+    public event UnityAction RightMouseClicked = delegate { };
 
     private InputActions inputActions;
 
@@ -25,7 +22,7 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     private void OnEnable()
     {
         if (inputActions != null) return;
-        
+
         inputActions = new InputActions();
         inputActions.Player.SetCallbacks(this);
     }
@@ -33,16 +30,6 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public void EnablePlayerActions()
     {
         inputActions.Enable();
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        // noon
-    }
-
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        // noon
     }
     
     public void OnBuilding(InputAction.CallbackContext context)
@@ -76,6 +63,12 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
         }
     }
 
+    public void OnMouseRightClick(InputAction.CallbackContext context)
+    {
+        if (context.action.IsPressed())
+            RightMouseClicked.Invoke();
+    }
+
     public void OnFire(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -107,19 +100,16 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
 
     public void OnAlpha3(InputAction.CallbackContext context)
     {
-        OnAlphaPressed?.Invoke(2);
+        OnAlphaPressed.Invoke(2);
+    }
+    
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        // ignore
     }
 
-    public void OnAim(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext context)
     {
-        switch (context.phase)
-        {
-            case InputActionPhase.Started:
-                Aim.Invoke(true);
-                break;
-            case InputActionPhase.Canceled:
-                Aim.Invoke(false);
-                break;
-        }
+        // ignore
     }
 }

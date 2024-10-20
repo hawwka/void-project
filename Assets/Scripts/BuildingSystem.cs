@@ -14,7 +14,6 @@ public class BuildingSystem : MonoBehaviour
     int currentBuildingIndex;
     Quaternion currentBuildingRotation;
 
-    BuildingState buildingState;
 
     bool isRotatingLeft;
     bool isRotatingRight;
@@ -29,6 +28,17 @@ public class BuildingSystem : MonoBehaviour
         currentBuilding = Instantiate(Buildings[index], Buildings[index].transform.position, Quaternion.identity);
 
         currentBuildingIndex = index;
+    }
+
+    public void Place(bool value)
+    {
+        if (!currentBuilding.Phantom.HasValidPlacement) return;
+
+        currentBuilding.Construct();
+
+        currentBuilding = null;
+
+        SelectBuilding(currentBuildingIndex);
     }
 
     public void HideBuilding()
@@ -83,14 +93,4 @@ public class BuildingSystem : MonoBehaviour
         isRotatingRight = value;
     }
 
-    public void Place(bool value)
-    {
-        if (currentBuilding.Marker.IsColliding) return;
-
-        currentBuilding.Construct();
-
-        currentBuilding = null;
-
-        SelectBuilding(currentBuildingIndex);
-    }
 }
