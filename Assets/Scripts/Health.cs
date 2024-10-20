@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HealthController : MonoBehaviour
+public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;

@@ -51,7 +51,7 @@ public class EnemyProjectile : MonoBehaviour
         if (!(Vector3.Distance(player.position, transform.position) <= detonateRadius))
             return;
         
-        if (player.gameObject.TryGetComponent<HealthController>(out var component))
+        if (player.gameObject.TryGetComponent<Health>(out var component))
         {
             component.TakeDamage(damage);
             Destroy(gameObject);
