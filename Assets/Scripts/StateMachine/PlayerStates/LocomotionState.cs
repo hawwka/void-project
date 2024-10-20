@@ -12,14 +12,14 @@ public class LocomotionState : IState
     
     public void OnEnter()
     {
-        input.SelectPrimaryWeapon += playerController.SelectWeapon;
-        input.SelectSecondaryWeapon += playerController.SelectWeapon;
+        input.OnAlphaPressed += playerController.SelectWeapon;
+        input.OnAlphaPressed += playerController.SelectWeapon;
     }
 
     public void OnExit()
     {
-        input.SelectPrimaryWeapon -= playerController.SelectWeapon;
-        input.SelectSecondaryWeapon -= playerController.SelectWeapon;
+        input.OnAlphaPressed -= playerController.SelectWeapon;
+        input.OnAlphaPressed -= playerController.SelectWeapon;
     }
     
     public void Update() { }

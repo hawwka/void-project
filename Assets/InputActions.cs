@@ -64,7 +64,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PrimaryWeapon"",
+                    ""name"": ""Alpha1"",
                     ""type"": ""Button"",
                     ""id"": ""5c6ddf00-55d9-4112-99b4-686f9423795c"",
                     ""expectedControlType"": """",
@@ -73,9 +73,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SecondWeapon"",
+                    ""name"": ""Alpha2"",
                     ""type"": ""Button"",
                     ""id"": ""15370114-7b39-40d8-8ef9-14a44f5b8f19"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha3"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b6e57de-92cc-4881-b7fa-79a77d4ba732"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -328,7 +337,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PrimaryWeapon"",
+                    ""action"": ""Alpha1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -339,7 +348,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SecondWeapon"",
+                    ""action"": ""Alpha2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca8b373e-59af-4e7a-890c-188ae3fa1ec0"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Alpha3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -953,8 +973,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_PrimaryWeapon = m_Player.FindAction("PrimaryWeapon", throwIfNotFound: true);
-        m_Player_SecondWeapon = m_Player.FindAction("SecondWeapon", throwIfNotFound: true);
+        m_Player_Alpha1 = m_Player.FindAction("Alpha1", throwIfNotFound: true);
+        m_Player_Alpha2 = m_Player.FindAction("Alpha2", throwIfNotFound: true);
+        m_Player_Alpha3 = m_Player.FindAction("Alpha3", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Building = m_Player.FindAction("Building", throwIfNotFound: true);
         // UI
@@ -1040,8 +1061,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_PrimaryWeapon;
-    private readonly InputAction m_Player_SecondWeapon;
+    private readonly InputAction m_Player_Alpha1;
+    private readonly InputAction m_Player_Alpha2;
+    private readonly InputAction m_Player_Alpha3;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Building;
     public struct PlayerActions
@@ -1052,8 +1074,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @PrimaryWeapon => m_Wrapper.m_Player_PrimaryWeapon;
-        public InputAction @SecondWeapon => m_Wrapper.m_Player_SecondWeapon;
+        public InputAction @Alpha1 => m_Wrapper.m_Player_Alpha1;
+        public InputAction @Alpha2 => m_Wrapper.m_Player_Alpha2;
+        public InputAction @Alpha3 => m_Wrapper.m_Player_Alpha3;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Building => m_Wrapper.m_Player_Building;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1077,12 +1100,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @PrimaryWeapon.started += instance.OnPrimaryWeapon;
-            @PrimaryWeapon.performed += instance.OnPrimaryWeapon;
-            @PrimaryWeapon.canceled += instance.OnPrimaryWeapon;
-            @SecondWeapon.started += instance.OnSecondWeapon;
-            @SecondWeapon.performed += instance.OnSecondWeapon;
-            @SecondWeapon.canceled += instance.OnSecondWeapon;
+            @Alpha1.started += instance.OnAlpha1;
+            @Alpha1.performed += instance.OnAlpha1;
+            @Alpha1.canceled += instance.OnAlpha1;
+            @Alpha2.started += instance.OnAlpha2;
+            @Alpha2.performed += instance.OnAlpha2;
+            @Alpha2.canceled += instance.OnAlpha2;
+            @Alpha3.started += instance.OnAlpha3;
+            @Alpha3.performed += instance.OnAlpha3;
+            @Alpha3.canceled += instance.OnAlpha3;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
@@ -1105,12 +1131,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @PrimaryWeapon.started -= instance.OnPrimaryWeapon;
-            @PrimaryWeapon.performed -= instance.OnPrimaryWeapon;
-            @PrimaryWeapon.canceled -= instance.OnPrimaryWeapon;
-            @SecondWeapon.started -= instance.OnSecondWeapon;
-            @SecondWeapon.performed -= instance.OnSecondWeapon;
-            @SecondWeapon.canceled -= instance.OnSecondWeapon;
+            @Alpha1.started -= instance.OnAlpha1;
+            @Alpha1.performed -= instance.OnAlpha1;
+            @Alpha1.canceled -= instance.OnAlpha1;
+            @Alpha2.started -= instance.OnAlpha2;
+            @Alpha2.performed -= instance.OnAlpha2;
+            @Alpha2.canceled -= instance.OnAlpha2;
+            @Alpha3.started -= instance.OnAlpha3;
+            @Alpha3.performed -= instance.OnAlpha3;
+            @Alpha3.canceled -= instance.OnAlpha3;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
@@ -1303,8 +1332,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnPrimaryWeapon(InputAction.CallbackContext context);
-        void OnSecondWeapon(InputAction.CallbackContext context);
+        void OnAlpha1(InputAction.CallbackContext context);
+        void OnAlpha2(InputAction.CallbackContext context);
+        void OnAlpha3(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnBuilding(InputAction.CallbackContext context);
     }

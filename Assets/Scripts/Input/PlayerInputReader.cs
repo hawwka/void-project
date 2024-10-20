@@ -8,8 +8,7 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
 {
     public event UnityAction Dash = delegate {  };
     public event UnityAction<bool> Fire = delegate {  };
-    public event UnityAction<int> SelectPrimaryWeapon = delegate {  };
-    public event UnityAction<int> SelectSecondaryWeapon = delegate {  };
+    public event UnityAction<int> OnAlphaPressed = delegate {  };
     public event UnityAction<bool> Aim = delegate {  };
     
     public event UnityAction Building = delegate {  };
@@ -67,14 +66,19 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
             Dash.Invoke();
     }
 
-    public void OnPrimaryWeapon(InputAction.CallbackContext context)
+    public void OnAlpha1(InputAction.CallbackContext context)
     {
-        SelectPrimaryWeapon.Invoke(0);
+        OnAlphaPressed.Invoke(0);
     }
 
-    public void OnSecondWeapon(InputAction.CallbackContext context)
+    public void OnAlpha2(InputAction.CallbackContext context)
     {
-        SelectSecondaryWeapon.Invoke(1);
+        OnAlphaPressed.Invoke(1);
+    }
+
+    public void OnAlpha3(InputAction.CallbackContext context)
+    {
+        OnAlphaPressed?.Invoke(2);
     }
 
     public void OnAim(InputAction.CallbackContext context)

@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PrimaryWeapon",
+                    "name": "Alpha1",
                     "type": "Button",
                     "id": "5c6ddf00-55d9-4112-99b4-686f9423795c",
                     "expectedControlType": "",
@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SecondWeapon",
+                    "name": "Alpha2",
                     "type": "Button",
                     "id": "15370114-7b39-40d8-8ef9-14a44f5b8f19",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alpha3",
+                    "type": "Button",
+                    "id": "3b6e57de-92cc-4881-b7fa-79a77d4ba732",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -306,7 +315,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryWeapon",
+                    "action": "Alpha1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -317,7 +326,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecondWeapon",
+                    "action": "Alpha2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca8b373e-59af-4e7a-890c-188ae3fa1ec0",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Alpha3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
