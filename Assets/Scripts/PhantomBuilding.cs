@@ -10,7 +10,7 @@ public class Marker : MonoBehaviour
     
     int collisions = 0;
 
-    public bool IsColliding => collisions > 0;
+    public bool HasValidPlacement => collisions == 0;
     
     
     void OnTriggerEnter(Collider other)
@@ -29,7 +29,7 @@ public class Marker : MonoBehaviour
     
     void SetColor()
     {
-        if (IsColliding)
+        if (HasValidPlacement)
         {
             renderer.material.color = Color.red;
         }
