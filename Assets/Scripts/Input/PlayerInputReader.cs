@@ -12,6 +12,8 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public event UnityAction<int> SelectSecondaryWeapon = delegate {  };
     public event UnityAction<bool> Aim = delegate {  };
     
+    public event UnityAction Building = delegate {  };
+    
 
     private InputActions inputActions;
 
@@ -40,6 +42,11 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     {
         // noon
     }
+    
+    public void OnBuilding(InputAction.CallbackContext context)
+    {
+        Building.Invoke();
+    }
 
     public void OnFire(InputAction.CallbackContext context)
     {
@@ -56,7 +63,7 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if(context.action.IsPressed())
+        if (context.action.IsPressed())
             Dash.Invoke();
     }
 

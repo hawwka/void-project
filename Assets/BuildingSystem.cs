@@ -1,58 +1,86 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
 {
-    public GameObject Building;
-    public ConstructionMarker Marker;
+    [SerializeField] 
+    PlayerInputReader input;
+    
+    public List<Constructuble> Buildings;
+    public float RotationSpeed = 100;
 
-    [SerializeField] PlayerInputReader input;
+    Constructuble selectedBuilding;
+    bool isBuildMode;
     
     
-    public bool InBuildMode = false;
+    void SelectBuilding(int index)
+    {
+        if (index >= Buildings.Count || index < 0) return;
+        
+        HideBuilding();
+        
+        selectedBuilding = Instantiate(Buildings[index], Buildings[index].transform.position, Quaternion.identity);
+    }
     
-    
+    void HideBuilding()
+    {
+        if (selectedBuilding == null) return;
+        
+        Destroy(selectedBuilding.gameObject);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            InBuildMode = !InBuildMode;
+            isBuildMode = !isBuildMode;
+            
+            SelectBuilding(0);
         }
 
-
-        if (!InBuildMode)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Marker.gameObject.SetActive(false);
-            return;   
+            SelectBuilding(0);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectBuilding(1);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectBuilding(2);
+        }
+
+        if (!isBuildMode)
+        {
+            HideBuilding();
+            return;
         }
         
         var mousePos = Helpers.MouseToWorldPostion(input.MousePosition);
         
-        Marker.transform.position = new Vector3(Mathf.RoundToInt(mousePos.x), mousePos.y, Mathf.RoundToInt(mousePos.z));
-        Marker.gameObject.SetActive(true);
 
+        selectedBuilding.transform.position = new Vector3(mousePos.x, mousePos.y, mousePos.z);
+        selectedBuilding.gameObject.SetActive(true);
         
         
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.Comma))
         {
-            Marker.transform.Rotate(Vector3.up, 90);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftShift))
-        {
-            Marker.transform.Rotate(Vector3.up, -90);
+            selectedBuilding.transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
         }
         
-        
-
-        
-        if (Input.GetMouseButtonDown(0) && !Marker.IsColliding)
+        if (Input.GetKey(KeyCode.Period))
         {
-            var building = Instantiate(Building, Marker.transform.position, Marker.transform.rotation);
+            selectedBuilding.transform.Rotate(Vector3.up, -RotationSpeed * Time.deltaTime);
         }
 
+        if (!Input.GetMouseButtonDown(0) || selectedBuilding.Marker.IsColliding) return;
+        
+        selectedBuilding.Construct();
+        selectedBuilding = null;
+        SelectBuilding(0);
     }
-    
-    
-    
+
 }

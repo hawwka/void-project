@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConstructionMarker : MonoBehaviour
+public class Marker : MonoBehaviour
 {
     [SerializeField]
     Rigidbody rb;
@@ -16,7 +16,6 @@ public class ConstructionMarker : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         collisions++;
-        print($"{collisions}");
         
         SetColor();
     }
@@ -24,7 +23,6 @@ public class ConstructionMarker : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         collisions--;
-        print($"{collisions}");
         
         SetColor();
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -23,8 +24,10 @@ public class PlayerController : MonoBehaviour
     public Transform Model => model;
     public float DashForce => dashForce;
 
-    bool isFiring; 
+    bool isFiring;
     bool isAiming;
+    bool isBuilding;
+
 
     Vector3 movement;
    
@@ -47,40 +50,44 @@ public class PlayerController : MonoBehaviour
 
         dashTimer = new Timer(dashDuration);
         
-        input.EnablePlayerActions(); // Мне кажется странным, включение инпута происходит в старте, и нигде не отключается.  
+        input.EnablePlayerActions();  
     }
 
     void SetupStateMachine()
     {
         stateMachine = new StateMachine();
 
-        var attackState = new AttackState(this);
-        var idleState = new IdleState(this);
+        var locomotionState = new LocomotionState(this, input);
+        var attackState = new AttackState(this, input);
         var dashState = new DashState(this);
-        
-        stateMachine.AddAnyTransition(dashState, new FuncPredicate(() => dashTimer.IsRunning));
-        stateMachine.AddAnyTransition(idleState, new FuncPredicate(() => !isFiring && !dashTimer.IsRunning));
-        stateMachine.AddAnyTransition(attackState, new FuncPredicate(() => isFiring && !dashTimer.IsRunning));
+        var buildingState = new BuildingState(this, input);
 
-        stateMachine.SetState(idleState);
+        
+        stateMachine.AddTransition(locomotionState, dashState, new FuncPredicate(() => dashTimer.IsRunning));
+        stateMachine.AddTransition(locomotionState, attackState, new FuncPredicate(() => isFiring));
+        stateMachine.AddTransition(attackState, locomotionState, new FuncPredicate(() => !isFiring));
+        stateMachine.AddTransition(buildingState, locomotionState, new FuncPredicate(() => !isBuilding));
+        stateMachine.AddTransition(dashState, locomotionState, new FuncPredicate(() => !dashTimer.IsRunning));
+        
+        stateMachine.AddAnyTransition(buildingState, new FuncPredicate(() => isBuilding));
+        
+        stateMachine.SetState(locomotionState);
     }
     
     void OnEnable()
     {
         input.Fire += HandleFire;                  
-        input.SelectPrimaryWeapon += SelectWeapon;
-        input.SelectSecondaryWeapon += SelectWeapon;
         input.Dash += OnDash;
         input.Aim += ProcessAimInput;
+        input.Building += OnBuiding;
     }
     
     void OnDisable()
     {
         input.Fire -= HandleFire; 
-        input.SelectPrimaryWeapon -= SelectWeapon;
-        input.SelectSecondaryWeapon -= SelectWeapon;
         input.Dash -= OnDash;
         input.Aim -= ProcessAimInput;
+        input.Building -= OnBuiding;
     }
 
     void Update()
@@ -98,6 +105,11 @@ public class PlayerController : MonoBehaviour
             return;
         
         dashTimer.Run();
+    }
+
+    void OnBuiding()
+    {
+        isBuilding = !isBuilding;
     }
 
     public void HandleMovement()
@@ -135,7 +147,6 @@ public class PlayerController : MonoBehaviour
 
         targetRotation = Quaternion.LookRotation(lookPos - transform.position);
         
-        // model.LookAt(lookPos);
         model.rotation = Quaternion.RotateTowards(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
@@ -144,10 +155,20 @@ public class PlayerController : MonoBehaviour
         isAiming = isRMousePressed;
     }
 
-    void SelectWeapon(int weaponIndex)
+    public void SelectWeapon(int weaponIndex)
     {
         SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = false;
         SelectedWeapon = weapons[weaponIndex];
+        SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = true;
+    }
+    
+    public void HideWeapon()
+    {
+        SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = false;
+    }
+    
+    public void ShowWeapon()
+    {
         SelectedWeapon.gameObject.GetComponentInChildren<Renderer>().enabled = true;
     }
 

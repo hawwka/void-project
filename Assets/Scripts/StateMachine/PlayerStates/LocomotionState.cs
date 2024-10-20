@@ -1,14 +1,15 @@
-public class AttackState : IState
+public class LocomotionState : IState
 {
     PlayerController playerController;
     PlayerInputReader input;
     
-    public AttackState(PlayerController playerController, PlayerInputReader input)
+    
+    public LocomotionState(PlayerController playerController, PlayerInputReader input)
     {
-        this.input = input;
         this.playerController = playerController;
+        this.input = input;
     }
-
+    
     public void OnEnter()
     {
         input.SelectPrimaryWeapon += playerController.SelectWeapon;
@@ -20,14 +21,8 @@ public class AttackState : IState
         input.SelectPrimaryWeapon -= playerController.SelectWeapon;
         input.SelectSecondaryWeapon -= playerController.SelectWeapon;
     }
-
-    public void Update()
-    {
-        playerController.HandleAiming();
-        
-        if (playerController.IsRotationStopped())
-            playerController.SelectedWeapon.Attack();
-    }
+    
+    public void Update() { }
 
     public void FixedUpdate()
     {
