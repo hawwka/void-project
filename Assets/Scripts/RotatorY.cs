@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[ExecuteAlways]
 public class RotatorY : MonoBehaviour
 {
     public float Speed = 100;
