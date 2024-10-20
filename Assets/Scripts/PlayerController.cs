@@ -4,16 +4,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] PlayerInputReader input;
-    [SerializeField] List<Weapon> weapons = new();
-    [SerializeField] Transform model;
-
-    [Header("Settings")] [SerializeField] float health = 100f;
-    [SerializeField] float movementSpeed = 8;
-    [SerializeField] float aimSpeedPenaltyFactor = 0.4f;
-    [SerializeField] float dashForce = 50;
-    [SerializeField] float dashDuration = 0.25f;
-    [SerializeField] private float rotationSpeed = 1600f;
+    [SerializeField] 
+    PlayerInputReader input;
+    [SerializeField] 
+    List<Weapon> weapons = new();
+    [SerializeField] 
+    Transform model;
+    [SerializeField]
+    BuildingSystem buildingSystem;
+    
+    [Header("Settings"), SerializeField] 
+    float health = 100f;
+    [SerializeField] 
+    float movementSpeed = 8;
+    [SerializeField] 
+    float aimSpeedPenaltyFactor = 0.4f;
+    [SerializeField] 
+    float dashForce = 50;
+    [SerializeField] 
+    float dashDuration = 0.25f;
+    [SerializeField]  
+    float rotationSpeed = 1600f;
     
     private Quaternion targetRotation;
     
@@ -59,7 +70,7 @@ public class PlayerController : MonoBehaviour
         var locomotionState = new LocomotionState(this, input);
         var attackState = new AttackState(this, input);
         var dashState = new DashState(this);
-        var buildingState = new BuildingState(this, input);
+        var buildingState = new BuildingState(this, input, buildingSystem);
 
         
         stateMachine.AddTransition(locomotionState, dashState, new FuncPredicate(() => dashTimer.IsRunning));
