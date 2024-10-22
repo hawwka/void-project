@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMelee : EnemyBase
+public class EnemyPatrolling : EnemyBase
 {
     [Header("References")]
     [SerializeField] Renderer objectRenderer;
@@ -11,13 +11,14 @@ public class EnemyMelee : EnemyBase
     [Header("Settings")]
     
     [SerializeField] float attackCooldown = 1f;
-
+    
     public bool isDamageTaken;
     
     PlayerDetector playerDetector;
     NavMeshAgent agent;
     Timer attackTimer;
     StateMachine stateMachine;
+    EnemyPatrolState patrolState;
     
     Color defaultColor;
     
@@ -25,6 +26,7 @@ public class EnemyMelee : EnemyBase
 
     protected override void Awake()
     {
+        patrolState = GetComponent<EnemyPatrolState>();
         agent = GetComponent<NavMeshAgent>();
         playerDetector = GetComponent<PlayerDetector>();
     }
@@ -50,13 +52,13 @@ public class EnemyMelee : EnemyBase
     protected override void SetupStateMachine()
     {
         stateMachine = new StateMachine();
-
+        
         var wanderState = new EnemyWanderState();
         var attackState = new EnemyAttackState(this, playerDetector.Player);
         var chaseState = new EnemyChaseState(this, playerDetector, agent);
         var takeDamageState = new EnemyTakeDamageState(this);
 
-        stateMachine.AddTransition(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
+        stateMachine.AddTransition(patrolState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         stateMachine.AddTransition(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         stateMachine.AddTransition(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
         stateMachine.AddTransition(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
@@ -64,7 +66,7 @@ public class EnemyMelee : EnemyBase
         stateMachine.AddAnyTransition(takeDamageState, new FuncPredicate(() => isDamageTaken));
         stateMachine.AddTransition(takeDamageState, chaseState, new FuncPredicate(() => !isDamageTaken));
 
-        stateMachine.SetState(wanderState);
+        stateMachine.SetState(patrolState);
     }
     
     public override void TakeDamage()
