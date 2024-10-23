@@ -13,9 +13,9 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected float reloadTime;
 
-    [SerializeField] protected int magazineCapacity;
+    [SerializeField] int magazineCapacity;
      
-    protected Timer ReloadTimer;
+    Timer ReloadTimer;
     protected int shotsInMagazine;
 
     protected void Start()
@@ -37,8 +37,13 @@ public abstract class Weapon : MonoBehaviour
         shotsInMagazine = magazineCapacity;
     }
 
-    protected bool IsMagazineEmpty()
+    bool IsMagazineEmpty()
     {
         return shotsInMagazine <= 0;
+    }
+
+    protected bool IsAttackAllowed()
+    {
+        return (!IsMagazineEmpty() && !ReloadTimer.IsRunning);
     }
 }

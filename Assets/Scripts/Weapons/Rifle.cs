@@ -8,9 +8,7 @@ public class Rifle : Weapon
 
     public override void Attack()
     {
-        if(IsMagazineEmpty())
-            return;
-        if(ReloadTimer.IsRunning)
+        if(!IsAttackAllowed())
             return;
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
