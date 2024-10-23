@@ -302,6 +302,8 @@ MonoBehaviour:
   WeaponConfigSo: {fileID: 11400000, guid: 25aa7f5b09cd01243b283d14fbdba67f, type: 2}
   weaponSocket: {fileID: 7574387384190934704}
   visualEffect: {fileID: 2941548652586249124}
+  reloadTime: 4
+  magazineCapacity: 4
   pelletsAmount: 10
 --- !u!4 &9084618444624815434 stripped
 Transform:

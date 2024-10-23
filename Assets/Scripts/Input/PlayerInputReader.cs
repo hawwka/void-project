@@ -10,6 +10,7 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     public event UnityAction<bool> Fire = delegate { };
     public event UnityAction<int> OnAlphaPressed = delegate { };
     public event UnityAction Building = delegate { };
+    public event UnityAction Reload = delegate { };
     public event UnityAction<bool> RotateLeft = delegate { };
     public event UnityAction<bool> RotateRight = delegate { };
     public event UnityAction RightMouseClicked = delegate { };
@@ -102,7 +103,11 @@ public class PlayerInputReader : ScriptableObject, IPlayerActions
     {
         OnAlphaPressed.Invoke(2);
     }
-    
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        Reload.Invoke();
+    }    
     public void OnMove(InputAction.CallbackContext context)
     {
         // ignore

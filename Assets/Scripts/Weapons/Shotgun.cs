@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Shotgun : Weapon
 {
@@ -6,12 +8,17 @@ public class Shotgun : Weapon
     
     [SerializeField]
     private int pelletsAmount = 10;
-    
+
     public override void Attack()
     {
+        if(IsMagazineEmpty())
+            return;
+        if(ReloadTimer.IsRunning)
+            return;
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
-        
+
+        shotsInMagazine--;
         lastAttackedTime = Time.time;
         
         var origin = weaponSocket.position;

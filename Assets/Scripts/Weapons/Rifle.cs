@@ -5,12 +5,17 @@ using Random = UnityEngine.Random;
 public class Rifle : Weapon
 {
     private float lastAttackedTime;
-    
+
     public override void Attack()
     {
+        if(IsMagazineEmpty())
+            return;
+        if(ReloadTimer.IsRunning)
+            return;
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
-
+    
+        shotsInMagazine--;
         lastAttackedTime = Time.time;
      
         var origin = weaponSocket.position;

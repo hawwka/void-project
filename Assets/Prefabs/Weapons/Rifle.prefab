@@ -221,6 +221,8 @@ MonoBehaviour:
   WeaponConfigSo: {fileID: 11400000, guid: f771913b0a3342d448d5fc5f50a3c333, type: 2}
   weaponSocket: {fileID: 7574387384190934704}
   visualEffect: {fileID: 7069184605277199363}
+  reloadTime: 1
+  magazineCapacity: 30
 --- !u!4 &9084618444624815434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5673319678364907707, guid: 831b64925af120546940e58c2fa17617, type: 3}

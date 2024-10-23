@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
         input.Fire += HandleFire;                  
         input.Dash += OnDash;
         input.Building += OnBuiding;
+        input.Reload += OnReload;
     }
     
     void OnDisable()
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         input.Fire -= HandleFire; 
         input.Dash -= OnDash;
         input.Building -= OnBuiding;
+        input.Reload -= OnReload;
     }
 
     void Update()
@@ -114,6 +116,11 @@ public class PlayerController : MonoBehaviour
     void OnBuiding()
     {
         isBuilding = !isBuilding;
+    }
+
+    public void OnReload()
+    {
+        SelectedWeapon.Reload();
     }
 
     public void HandleMovement()
