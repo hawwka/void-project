@@ -11,12 +11,14 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] 
     protected WeaponVisualEffect visualEffect;
 
-    [SerializeField] protected float reloadTime;
+    [SerializeField] 
+    protected float reloadTime;
 
-    [SerializeField] int magazineCapacity;
+    [SerializeField] 
+    public int magazineCapacity;
      
     Timer ReloadTimer;
-    protected int shotsInMagazine;
+    public int shotsInMagazine;
 
     protected void Start()
     {
