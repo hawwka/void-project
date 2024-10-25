@@ -13,11 +13,11 @@ public class Rifle : Weapon
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
     
-        shotsInMagazine--;
+        ShotsInMagazine--;
         lastAttackedTime = Time.time;
      
-        var origin = weaponSocket.position;
-        var dir = weaponSocket.TransformDirection(Vector3.forward);
+        var origin = WeaponSocket.position;
+        var dir = WeaponSocket.TransformDirection(Vector3.forward);
         var randomOffset = Random.insideUnitCircle * WeaponConfigSo.MaxRecoil; 
         
         dir += new Vector3(randomOffset.x, 0, randomOffset.y);

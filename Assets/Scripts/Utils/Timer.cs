@@ -1,7 +1,10 @@
+using System;
+
 public class Timer
 {
     public bool IsRunning { get; private set; }
-
+    public event Action TimerFinished;
+    
     float duration;
     float timeLeft;
 
@@ -24,7 +27,9 @@ public class Timer
 
         timeLeft -= deltaTime;
 
-        if (timeLeft <= 0)
-            IsRunning = false;
+        if (timeLeft > 0) return;
+        
+        IsRunning = false;
+        TimerFinished?.Invoke();
     }
 }

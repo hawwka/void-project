@@ -16,11 +16,11 @@ public class Shotgun : Weapon
         if (Time.time - lastAttackedTime < WeaponConfigSo.DelayAftetShot)
             return;
 
-        shotsInMagazine--;
+        ShotsInMagazine--;
         lastAttackedTime = Time.time;
         
-        var origin = weaponSocket.position;
-        var dir = weaponSocket.TransformDirection(Vector3.forward);
+        var origin = WeaponSocket.position;
+        var dir = WeaponSocket.TransformDirection(Vector3.forward);
         var recoilStep = WeaponConfigSo.MaxRecoil * 2 / pelletsAmount;
         var recoilCurrentPos = -WeaponConfigSo.MaxRecoil;
         var dirVar = dir;

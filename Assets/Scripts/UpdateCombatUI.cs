@@ -17,7 +17,7 @@ public class UpdateCombatUI : MonoBehaviour
 
     public void Update()
     {
-        ammosLabel.text = playerController.SelectedWeapon.shotsInMagazine + "/" +
-                          playerController.SelectedWeapon.magazineCapacity;
+        ammosLabel.text = playerController.SelectedWeapon.ShotsInMagazine + "/" +
+                          playerController.SelectedWeapon.MagazineCapacity;
     }
 }

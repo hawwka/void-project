@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Weapon : MonoBehaviour
 {
     public WeaponConfigSO WeaponConfigSo;
 
     [SerializeField] 
-    public Transform weaponSocket;
+    public Transform WeaponSocket;
     
     [SerializeField] 
     protected WeaponVisualEffect visualEffect;
@@ -15,37 +16,43 @@ public abstract class Weapon : MonoBehaviour
     protected float reloadTime;
 
     [SerializeField] 
-    public int magazineCapacity;
+    public int MagazineCapacity;
      
-    Timer ReloadTimer;
-    public int shotsInMagazine;
+    Timer reloadTimer;
+    public int ShotsInMagazine;
 
     protected void Start()
     {
-        ReloadTimer = new Timer(reloadTime);
-        shotsInMagazine = magazineCapacity;
+        reloadTimer = new Timer(reloadTime);
+        ShotsInMagazine = MagazineCapacity;
+        reloadTimer.TimerFinished += OnReloadFinished;
     }
 
     public void Update()
     {
-        ReloadTimer.Tick(Time.deltaTime);
+        reloadTimer.Tick(Time.deltaTime);
     }
 
     public abstract void Attack();
 
     public void Reload()
     {
-        ReloadTimer.Run();
-        shotsInMagazine = magazineCapacity;
+        reloadTimer.Run();
+    }
+
+    void OnReloadFinished()
+    {
+        ShotsInMagazine = MagazineCapacity;
     }
 
     bool IsMagazineEmpty()
     {
-        return shotsInMagazine <= 0;
+        return ShotsInMagazine <= 0;
     }
 
-    protected bool IsAttackAllowed()
+    public bool IsAttackAllowed()
     {
-        return (!IsMagazineEmpty() && !ReloadTimer.IsRunning);
+        return (!IsMagazineEmpty() && !reloadTimer.IsRunning);
     }
+
 }
