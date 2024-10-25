@@ -932,6 +932,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 1243266407}
+  health: {fileID: 1406130164}
+--- !u!114 &1406130164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2955531244766382917, guid: 6316118236c686841874c928d34b14aa, type: 3}
+  m_PrefabInstance: {fileID: 591846908}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8f48e0a93b8354eb419ca356f530e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1441038490
 GameObject:
   m_ObjectHideFlags: 0
