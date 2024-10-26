@@ -24,7 +24,7 @@ public class EnemyRanged : EnemyBase
     
     Color defaultColor;
     
-    IAttackStrategy attackStrategy;
+    // AttackStrategy attackStrategy;
 
     protected override void Awake()
     {

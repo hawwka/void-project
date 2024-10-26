@@ -1,31 +1,35 @@
 public class LocomotionState : IState
 {
-    PlayerController playerController;
+    Player player;
+    PlayerWeapon playerWeapon;
     PlayerInputReader input;
-    
-    
-    public LocomotionState(PlayerController playerController, PlayerInputReader input)
+
+
+    public LocomotionState(Player player, PlayerWeapon playerWeapon, PlayerInputReader input)
     {
-        this.playerController = playerController;
+        this.player = player;
+        this.playerWeapon = playerWeapon;
         this.input = input;
     }
-    
+
     public void OnEnter()
     {
-        input.OnAlphaPressed += playerController.SelectWeapon;
-        input.OnAlphaPressed += playerController.SelectWeapon;
+        input.OnAlphaPressed += playerWeapon.SelectWeapon;
+        input.OnAlphaPressed += playerWeapon.SelectWeapon;
     }
 
     public void OnExit()
     {
-        input.OnAlphaPressed -= playerController.SelectWeapon;
-        input.OnAlphaPressed -= playerController.SelectWeapon;
+        input.OnAlphaPressed -= playerWeapon.SelectWeapon;
+        input.OnAlphaPressed -= playerWeapon.SelectWeapon;
     }
-    
-    public void Update() { }
+
+    public void Update()
+    {
+    }
 
     public void FixedUpdate()
     {
-        playerController.HandleMovement();
+        player.HandleMovement();
     }
 }

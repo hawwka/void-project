@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class DashState : IState
 {
-    PlayerController playerController;
+    Player player;
     
 
-    public DashState(PlayerController playerController)
+    public DashState(Player player)
     {
-        this.playerController = playerController;
+        this.player = player;
     }
 
     public void OnEnter()
@@ -32,14 +32,14 @@ public class DashState : IState
     
     void Dash()
     {
-        if (playerController.Movement.magnitude < 0.1f)
+        if (player.Movement.magnitude < 0.1f)
         {
-            playerController.Rb.AddForce(playerController.Model.forward * playerController.DashForce, ForceMode.Impulse);
+            player.Rb.AddForce(player.Model.forward * player.LocomotionAttributes.DashForce, ForceMode.Impulse);
         }
         else
         {
-            playerController.Model.rotation = Quaternion.LookRotation(playerController.Movement.ToIso(), Vector3.up);
-            playerController.Rb.AddForce(playerController.Movement.normalized.ToIso() * playerController.DashForce, ForceMode.Impulse);
+            player.Model.rotation = Quaternion.LookRotation(player.Movement.ToIso(), Vector3.up);
+            player.Rb.AddForce(player.Movement.normalized.ToIso() * player.LocomotionAttributes.DashForce, ForceMode.Impulse);
         }
     }
 }

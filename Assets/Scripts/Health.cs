@@ -1,23 +1,23 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] float maxHealth = 100f;
-    [SerializeField] public float currentHealth;
+    public float MaxHealth = 100f;
+    public float CurrentHealth { get; private set; }
 
     public UnityEvent OnHealthEnded = new();
 
+
     void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        CurrentHealth -= amount;
+        if (CurrentHealth <= 0)
         {
             OnHealthEnded.Invoke();
         }

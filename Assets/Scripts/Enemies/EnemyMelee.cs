@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class EnemyMelee : EnemyBase
 {
+    [FormerlySerializedAs("objectRenderer")]
     [Header("References")]
-    [SerializeField] Renderer objectRenderer;
+    [SerializeField] Renderer[] renderers;
 
     [Header("Settings")]
     
@@ -21,7 +22,7 @@ public class EnemyMelee : EnemyBase
     
     Color defaultColor;
     
-    IAttackStrategy attackStrategy;
+    // AttackStrategy attackStrategy;
 
     protected override void Awake()
     {
@@ -41,8 +42,8 @@ public class EnemyMelee : EnemyBase
     protected override void Start()
     {
         base.Start();
-        objectRenderer = GetComponent<Renderer>();
-        defaultColor = objectRenderer.material.color;
+        renderers = GetComponents<Renderer>();
+        defaultColor = renderers[0].material.color;
 
         attackTimer = new Timer(attackCooldown);
     }
@@ -84,17 +85,17 @@ public class EnemyMelee : EnemyBase
     {
         isDamageTaken = false;
 
-        #region TakingDamageLogic
+        foreach (var meshRenderer in renderers)
+        {
+            meshRenderer.material.color = Color.red;
+            StartCoroutine(TakeDamageRoutine(meshRenderer));
+            StopAllCoroutines();
+            
+        }
 
-        objectRenderer.material.color = Color.red;
-
-        StopAllCoroutines();
-        StartCoroutine(TakeDamageRoutine());
-
-        #endregion
     }
     
-    IEnumerator TakeDamageRoutine()
+    IEnumerator TakeDamageRoutine(Renderer renderer)
     {
         float t = 0f;
         float dur = .5f;
@@ -106,14 +107,14 @@ public class EnemyMelee : EnemyBase
         {
             var newColor = Color.Lerp(start, end, t / dur);
 
-            objectRenderer.material.color = newColor;
+            renderer.material.color = newColor;
 
             t += Time.deltaTime;
 
             yield return null;
         }
 
-        objectRenderer.material.color = end;
+        renderer.material.color = end;
     }
     
     public override void Die()

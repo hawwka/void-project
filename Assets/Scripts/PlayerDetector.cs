@@ -19,7 +19,7 @@ public class PlayerDetector : MonoBehaviour
 
     void Start()
     {
-        detectionStrategy = new DetectionStrategy(detectionRadius);
+        detectionStrategy = new RadiusDetectionStrategy(detectionRadius);
     }
 
     public void SetDetectionStrategy(IDetectionStrategy detectionStrategy) // TODO Пробрасывать через DI контейнер

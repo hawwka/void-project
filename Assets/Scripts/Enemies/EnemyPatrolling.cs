@@ -22,7 +22,7 @@ public class EnemyPatrolling : EnemyBase
     
     Color defaultColor;
     
-    IAttackStrategy attackStrategy;
+    // AttackStrategy attackStrategy;
 
     protected override void Awake()
     {

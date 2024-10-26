@@ -1,38 +1,38 @@
-using UnityEngine;
-
 public class AttackState : IState
 {
-    PlayerController playerController;
+    Player player;
+    PlayerWeapon playerWeapon;
     PlayerInputReader input;
-    
-    public AttackState(PlayerController playerController, PlayerInputReader input)
+
+    public AttackState(Player player, PlayerWeapon playerWeapon, PlayerInputReader input)
     {
+        this.player = player;
+        this.playerWeapon = playerWeapon;
         this.input = input;
-        this.playerController = playerController;
     }
 
     public void OnEnter()
     {
-        input.OnAlphaPressed += playerController.SelectWeapon;
-        input.OnAlphaPressed += playerController.SelectWeapon;
+        input.OnAlphaPressed += playerWeapon.SelectWeapon;
+        input.OnAlphaPressed += playerWeapon.SelectWeapon;
     }
 
     public void OnExit()
     {
-        input.OnAlphaPressed -= playerController.SelectWeapon;
-        input.OnAlphaPressed -= playerController.SelectWeapon;
+        input.OnAlphaPressed -= playerWeapon.SelectWeapon;
+        input.OnAlphaPressed -= playerWeapon.SelectWeapon;
     }
 
     public void Update()
     {
-        playerController.Aim();
-        
-        if (playerController.IsRotationStopped())
-            playerController.SelectedWeapon.Attack();
+        player.Aim();
+
+        if (player.IsRotationStopped())
+            playerWeapon.Attack();
     }
 
     public void FixedUpdate()
     {
-        playerController.HandleMovement();
+        player.HandleMovement();
     }
 }
