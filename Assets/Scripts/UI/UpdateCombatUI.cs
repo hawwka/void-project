@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class UpdateCombatUI : MonoBehaviour
 {
-    public Weapon Weapon;
+    [SerializeField] PlayerWeapon playerWeapon;
 
     UIDocument uiDocument;
     Label ammoLabel;
@@ -17,7 +17,6 @@ public class UpdateCombatUI : MonoBehaviour
 
     public void Update()
     {
-        ammoLabel.text = Weapon.Magazine.Remaining + "/" +
-                          0;
+        ammoLabel.text = playerWeapon.Selected.Magazine.Remaining + "/" + playerWeapon.Selected.Magazine.Capacity;
     }
 }

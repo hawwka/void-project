@@ -23,7 +23,6 @@ public class PlayerWeapon : MonoBehaviour
         if (weaponIndex >= Weapons.Count)
             return;
         
-        
         Selected?.Unequip();
         Selected = Weapons[weaponIndex];
         Selected.Equip();

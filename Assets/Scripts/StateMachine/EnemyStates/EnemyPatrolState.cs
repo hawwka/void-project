@@ -9,7 +9,6 @@ public class EnemyPatrolState : State
     [SerializeField] List<Transform> trackPoints;
 
     int currentPoint = 1;
-    int previousPoint = 0;
     bool reverseMovement = false;
 
     public override void OnEnter()

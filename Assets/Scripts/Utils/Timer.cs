@@ -21,6 +21,11 @@ public class Timer
         timeLeft = duration;
     }
 
+    public void Stop()
+    {
+        IsRunning = false;
+    }
+
     public void Tick(float deltaTime)
     {
         if (!IsRunning) return;
