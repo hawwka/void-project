@@ -1,16 +1,17 @@
+using UnityEditor.Experimental;
 using UnityEngine;
 
 public class EnemyAttackState : IState
 {
     Enemy enemy;
-    Transform player;
+    PlayerDetector playerDetector;
 
     public EnemyAttackState(){}
     
-    public EnemyAttackState(Enemy enemy, Transform player)
+    public EnemyAttackState(Enemy enemy, PlayerDetector playerDetector)
     {
         this.enemy = enemy;
-        this.player = player;
+        this.playerDetector = playerDetector;
     }
 
     public void OnEnter()
@@ -25,6 +26,9 @@ public class EnemyAttackState : IState
 
     public void Update()
     {
+        var player = playerDetector.Player;
+        
+        
         enemy.transform.LookAt(new Vector3(player.position.x, enemy.transform.position.y, player.position.z));
 
         enemy.Attack();
