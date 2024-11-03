@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AutoAttackStrategy", menuName = "ScriptableObjects/Strategies/Weapon/AutoAttackStrategy")]
 public class AutoAttackStrategy: AttackStrategy
 {
-    public float AttackSpeed;
     public float Recoil;
     public float Range;
     public float Speed;
