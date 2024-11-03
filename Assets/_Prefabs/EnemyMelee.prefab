@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1720385252277565815, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
       propertyPath: attackRange
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2198415287792348220, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
       propertyPath: OnHealthEnd.m_PersistentCalls.m_Calls.Array.size
@@ -302,7 +302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345714759845908752, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
       propertyPath: m_StoppingDistance
-      value: 5
+      value: 1.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4880071765665883932, guid: 331506490f7f2fe4ead66abcf2d659d7, type: 3}
@@ -341,6 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8934e690d4f054390856e7c408212c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRate: 1
   StatesFactory: {fileID: 11400000, guid: 16d52579e9071c448b85655fdd23260b, type: 2}
   OnDamageTaken:
     m_PersistentCalls:
@@ -357,7 +358,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  AttackRate: 1
+  Damage: 20
+  AttackRange: 3
 --- !u!114 &8798351140495395862
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,8 +5,6 @@ public class EnemyAttackState : IState
 {
     Enemy enemy;
     PlayerDetector playerDetector;
-
-    public EnemyAttackState(){}
     
     public EnemyAttackState(Enemy enemy, PlayerDetector playerDetector)
     {
@@ -16,7 +14,6 @@ public class EnemyAttackState : IState
 
     public void OnEnter()
     {
-        
     }
 
     public void OnExit()

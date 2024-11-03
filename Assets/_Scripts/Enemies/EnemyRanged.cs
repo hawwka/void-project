@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyRanged : Enemy
 {
@@ -6,10 +7,11 @@ public class EnemyRanged : Enemy
     // [SerializeField] Renderer objectRenderer;
     [SerializeField] EnemyProjectile projectilePrefab;
     
-    [Header("Settings")]
-    [SerializeField] int maxHealth = 100;
-
-    [SerializeField] float attackCooldown = 1f;
+    // [Header("Settings")]
+    // [SerializeField] int maxHealth = 100;
+    
+    [SerializeField] 
+    float AttackCooldown = 1f;
     
     // public bool isDamageTaken;
     
@@ -35,7 +37,7 @@ public class EnemyRanged : Enemy
         // objectRenderer = GetComponent<Renderer>();
         // defaultColor = objectRenderer.material.color;
 
-        attackTimer = new Timer(attackCooldown);
+        attackTimer = new Timer(AttackCooldown);
     }
 
     void Update()
@@ -67,8 +69,8 @@ public class EnemyRanged : Enemy
     //     stateMachine.SetState(wanderState);
     // }
 
-    public override void Attack()
-    {
+    // public override void Attack()
+    // {
         // if (attackTimer.IsRunning)
         //     return;
         //
@@ -77,7 +79,7 @@ public class EnemyRanged : Enemy
         // var projectile = Instantiate(projectilePrefab, transform.position + transform.TransformDirection(Vector3.forward), Quaternion.identity);
         //
         // projectile.Init(playerDetector.Player);
-    }
+    // }
 
     // public override void TakeDamage()
     // {
