@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 222518107739972859}
   - component: {fileID: 2198415287792348220}
   - component: {fileID: 1720385252277565815}
+  - component: {fileID: 3374979869195821891}
+  - component: {fileID: 5830746446900206608}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -146,7 +148,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  OnHealthEnded:
+  OnHealthEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3374979869195821891}
+        m_TargetAssemblyTypeName: Instantiate, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8345714759845908752}
+        m_TargetAssemblyTypeName: UnityEngine.AI.NavMeshAgent, UnityEngine
+        m_MethodName: set_isStopped
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnHealthAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthDecreased:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1720385252277565815
@@ -163,3 +195,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 15
   attackRange: 10
+--- !u!114 &3374979869195821891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478632805596775772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ebe8c045c4e754eaea1bccea443d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 1514504764500314925}
+  Parent: {fileID: 0}
+  SpawnPrefab: {fileID: 7990076099688851114, guid: e7de7a7778ca4324690bd81f1bb44c0e, type: 3}
+--- !u!114 &5830746446900206608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478632805596775772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28912d4b5c25f534eb22543a8f8a3ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImpulseForce: 20
+  DestroyTime: 5

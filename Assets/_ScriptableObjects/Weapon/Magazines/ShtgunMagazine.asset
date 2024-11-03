@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c3ae80aff34054b901b365808ed51c, type: 3}
   m_Name: ShtgunMagazine
   m_EditorClassIdentifier: 
-  Remaining: 0
+  Remaining: 1
   Capacity: 6
-  ReloadTime: 0.65
+  ReloadTime: 0.73

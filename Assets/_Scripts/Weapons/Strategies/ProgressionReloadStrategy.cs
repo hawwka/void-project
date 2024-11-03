@@ -26,12 +26,10 @@ public class ProgressionReloadStrategy : ReloadStrategy
 
     public override void Interrupt()
     {
-        if (reloadRoutine != null)
-        {
-            weapon.StopCoroutine(reloadRoutine);
-            reloadRoutine = null;
-        }
-
+        if (reloadRoutine == null) return;
+        
+        weapon.StopCoroutine(reloadRoutine);
+        reloadRoutine = null;
     }
 
     IEnumerator ReloadRoutine()

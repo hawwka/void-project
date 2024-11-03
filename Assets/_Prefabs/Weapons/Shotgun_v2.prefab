@@ -231,8 +231,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: eb188c6fd4bf50a40bcc46fab5cc0d27, type: 2}
     - target: {fileID: 2191581481268260123, guid: 831b64925af120546940e58c2fa17617, type: 3}
+      propertyPath: Ergonomic
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191581481268260123, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: AttackSpeed
-      value: 0.5
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: 2191581481268260123, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: VisualEffect
@@ -364,7 +368,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 100
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

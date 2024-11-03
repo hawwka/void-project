@@ -125,6 +125,7 @@ public class EnemyRanged : Enemy
     
     public override void Die()
     {
-        Destroy(gameObject);
+        Destroy(this);
+        Destroy(NavMeshAgent);
     }
 }

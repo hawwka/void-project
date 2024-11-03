@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c3ae80aff34054b901b365808ed51c, type: 3}
   m_Name: RifleMagazine
   m_EditorClassIdentifier: 
-  Remaining: 8
+  Remaining: 30
   Capacity: 30
-  ReloadTime: 1
+  ReloadTime: 2

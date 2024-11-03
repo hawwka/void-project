@@ -4,36 +4,33 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("References")]
     public GameObject SpawnPrefab;
     public Transform Parent;
-
-    [Header("SpawnSettings")]
-    public bool SpawnAtStartup;
-    public int Number = 5;
-    public float SpawnRadius = 5f;
     
+    public int MaxLimit = 5;
+    public float SpawnInterval = 3f;
+    public float InnerRadius = 10f;
+    public float OuterRadius = 20f;
     
     private void Start()
     {
-        if (SpawnAtStartup)
-            Spawn();
+        InvokeRepeating(nameof(SpawnInRadius), 1,SpawnInterval);
     }
-
-    [ContextMenu("Spawn")]
-    public void Spawn()
+    
+    void SpawnInRadius()
     {
-        for (int i = 0; i < Number; i++)
+        if (Parent != null && Parent.childCount >= MaxLimit)
         {
-            var randomDirection = Random.insideUnitSphere * SpawnRadius;
-
-            NavMesh.SamplePosition(randomDirection, out var hit, SpawnRadius, 1);
-            var finalPosition = hit.position;
-
-
-            var parent = Parent == null ? transform : Parent;
-            
-            Instantiate(SpawnPrefab, finalPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), parent);
+            return;
         }
+
+        var randomPos = Random.insideUnitSphere.normalized * Random.Range(InnerRadius, OuterRadius) + transform.position;
+
+        NavMesh.SamplePosition(randomPos, out var hit, 200, 1);
+        
+        var finalPosition = hit.position;
+        var parent = Parent == null ? transform : Parent;
+
+        Instantiate(SpawnPrefab, finalPosition, Quaternion.identity, parent);
     }
 }

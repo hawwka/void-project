@@ -18,10 +18,15 @@ public class Health : MonoBehaviour
 
     public void AddHealth(int amount)
     {
-        CurrentHealth += amount;
-        
         if (CurrentHealth <= 0)
+            return;
+        
+        CurrentHealth += amount;
+
+        if (CurrentHealth <= 0)
+        {
             OnHealthEnd.Invoke();
+        }
         
         if (amount > 0)
             OnHealthAdded.Invoke(amount);

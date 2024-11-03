@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2126921b0dd5742418b9c4505951bb16, type: 3}
   m_Name: AutoAttackStrategy
   m_EditorClassIdentifier: 
-  AttackSpeed: 0.1
-  Recoil: 0.1
+  Recoil: 0.07
   Range: 100
   Speed: 200
-  Damage: 10
+  Damage: 15

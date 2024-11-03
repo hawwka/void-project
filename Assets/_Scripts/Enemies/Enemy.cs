@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour, IDamageable
@@ -6,6 +7,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float AttackRate = 1f;
     public EnemyStatesFactory StatesFactory;
     public UnityEvent OnDamageTaken;
+    public NavMeshAgent NavMeshAgent;
     
     protected StateMachine StateMachine;
     
