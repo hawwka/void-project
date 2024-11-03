@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShotgunAttackStrategy", menuName = "ScriptableObjects/Strategies/Weapon/ShotgunAttackStrategy")]
 public class ShotgunAttackStrategy : AttackStrategy
 {
-    public float AttackSpeed;
     public float Recoil;
     public float Range;
     public float Speed;
@@ -11,21 +10,14 @@ public class ShotgunAttackStrategy : AttackStrategy
     public int Damage;
     
     Weapon weapon;
-    float lastAttackedTime;
     
-    public override bool CanAttack => Time.time - lastAttackedTime >= AttackSpeed;
-
-
     public override void Initialize(Weapon weapon)
     {
         this.weapon = weapon;
-        lastAttackedTime = 0;
     }
 
     public override void Attack(Transform origin, Vector3 direction)
     {
-        lastAttackedTime = Time.time;
-
         var recoilStep = Recoil * 2 / PelletsPerShot;
         var recoilCurrentPos = -Recoil;
         var dirVar = direction;

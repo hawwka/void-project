@@ -129,6 +129,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2191581481268260123, guid: 831b64925af120546940e58c2fa17617, type: 3}
+      propertyPath: AttackSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191581481268260123, guid: 831b64925af120546940e58c2fa17617, type: 3}
       propertyPath: VisualEffect
       value: 
       objectReference: {fileID: 7465510783884985720}

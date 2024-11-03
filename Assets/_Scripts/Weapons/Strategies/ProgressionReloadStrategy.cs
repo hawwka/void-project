@@ -7,7 +7,6 @@ public class ProgressionReloadStrategy : ReloadStrategy
     Weapon weapon;
     Coroutine reloadRoutine;
 
-    public override bool IsReady => weapon.Magazine.Remaining > 0;
     public override bool IsReloading => reloadRoutine != null;
 
     public override void Initialize(Weapon weapon)

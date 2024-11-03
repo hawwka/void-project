@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 public class PlayerWeapon : MonoBehaviour
 {
     public List<Weapon> Weapons = new();
-    
     public float SpeedPenalty => Selected.Ergonomic;
     public Weapon Selected { get; private set; }
-
     
     
     void Start()

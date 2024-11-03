@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Playables;
 
 public sealed class Weapon : MonoBehaviour, IAttackable, IReloadable, IEquippable
 {
+    public float AttackSpeed;
+    
     public Transform Origin;
     public Transform Direction;
     
@@ -19,6 +20,7 @@ public sealed class Weapon : MonoBehaviour, IAttackable, IReloadable, IEquippabl
     public UnityEvent OnAttack = new();
     public UnityEvent OnReload = new();
     
+    float lastAttackedTime;
     
     void Start()
     {
@@ -34,9 +36,17 @@ public sealed class Weapon : MonoBehaviour, IAttackable, IReloadable, IEquippabl
     
     public void Attack()
     {
-        if (!AttackStrategy.CanAttack || !ReloadStrategy.IsReady)
+        if (Magazine.Remaining < 1)
+        {
+            ReloadStrategy.Reload();
             return;
-
+        }
+        
+        if (Time.time - lastAttackedTime < AttackSpeed)
+            return;
+        
+        lastAttackedTime = Time.time;
+        
         if (ReloadStrategy.IsReloading)
             ReloadStrategy.Interrupt();
         

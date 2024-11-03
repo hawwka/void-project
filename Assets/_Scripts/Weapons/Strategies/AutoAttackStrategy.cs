@@ -10,21 +10,15 @@ public class AutoAttackStrategy: AttackStrategy
     public int Damage;
 
     Weapon weapon;
-    float lastAttackedTime;
-    
-    public override bool CanAttack => Time.time - lastAttackedTime >= AttackSpeed;
     
     
     public override void Initialize(Weapon weapon)
     {
         this.weapon = weapon;
-        lastAttackedTime = 0;
     }
 
      public override void Attack(Transform origin, Vector3 direction)
      {
-         lastAttackedTime = Time.time;
-         
          var randomOffset = Random.insideUnitCircle * Recoil;
          
          direction += new Vector3(randomOffset.x, 0, randomOffset.y);
